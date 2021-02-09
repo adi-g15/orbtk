@@ -1,6 +1,7 @@
 use orbclient::Renderer;
 
-use orbtk_base::shell::*;
+use orbtk_base::{localization::*, theming::*};
+use orbtk_shell::*;
 
 use crate::Error;
 
@@ -130,6 +131,7 @@ impl WindowBuilder {
     /// Builder method that is used to specify the window size with width and height.
     pub fn size(mut self, width: u32, height: u32) -> Self {
         self.size = (width, height);
+        self.shell_builder = self.shell_builder.size(width, height);
         self
     }
 
@@ -162,6 +164,18 @@ impl WindowBuilder {
     /// If set to `true` the window will be centered on the screen an position will be ignored.
     pub fn centered(mut self, centered: bool) -> Self {
         self.centered = centered;
+        self
+    }
+
+    /// Builder method that is used to specify the theme of the ui.
+    pub fn theme(mut self, theme: impl Into<Theme>) -> Self {
+        self.shell_builder = self.shell_builder.theme(theme);
+        self
+    }
+
+    /// Builder method that is used to specify the localization service that is used to localize the ui.
+    pub fn localization(mut self, localization: impl Into<Localization>) -> Self {
+        self.shell_builder = self.shell_builder.localization(localization);
         self
     }
 

@@ -630,13 +630,8 @@ impl RenderContext2D {
     }
 
     /// Return the pixmap data length as an [u32] reference value.
-    pub fn data(&self) -> &[u32] {
-        unsafe {
-            slice::from_raw_parts(
-                self.pix_map.data().as_ptr() as *const u32,
-                self.pix_map.data().len() / 4,
-            )
-        }
+    pub fn data(&self) -> &[u8] {
+        self.pix_map.data()
     }
 
     // //pub fn data_mut(&mut self) -> &mut [u32] {

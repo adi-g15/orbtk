@@ -1,54 +1,60 @@
 //! This module contains all resources to call and handle events.
 
-use std::{any::Any, collections::BTreeMap, rc::Rc};
+mod key_event;
+mod mouse_event;
 
-use dces::entity::Entity;
+pub use self::key_event::*;
+pub use self::mouse_event::*;
 
-use crate::widget_base::StatesContext;
+// use std::{any::Any, collections::BTreeMap, rc::Rc};
 
-pub use self::drop::*;
-pub use self::editable::*;
-pub use self::event_adapter::*;
-pub use self::event_handler::*;
-pub use self::event_queue::*;
-pub use self::focus::*;
-pub use self::key::*;
-pub use self::mouse::*;
-pub use self::system::*;
-pub use self::text_input::*;
-pub use self::window::*;
+// use dces::entity::Entity;
 
-mod drop;
-mod editable;
-mod event_adapter;
-mod event_handler;
-mod event_queue;
-mod focus;
-mod key;
-mod mouse;
-mod system;
-mod text_input;
-mod window;
+// use crate::widget_base::StatesContext;
 
-/// Defines the strategy of an event how it moves through the tree.
-#[derive(Debug, Clone, PartialEq)]
-pub enum EventStrategy {
-    // /// From root to leaf.
-    // TopDown,
-    /// From leaf to root.
-    BottomUp,
+// pub use self::drop::*;
+// pub use self::editable::*;
+// pub use self::event_adapter::*;
+// pub use self::event_handler::*;
+// pub use self::event_queue::*;
+// pub use self::focus::*;
+// pub use self::key::*;
+// pub use self::mouse::*;
+// pub use self::system::*;
+// pub use self::text_input::*;
+// pub use self::window::*;
 
-    /// Occurs direct.
-    Direct,
-}
+// mod drop;
+// mod editable;
+// mod event_adapter;
+// mod event_handler;
+// mod event_queue;
+// mod focus;
+// mod key;
+// mod mouse;
+// mod system;
+// mod text_input;
+// mod window;
 
-/// Used to define an event.
-pub trait Event: Any {
-    fn strategy(&self) -> EventStrategy {
-        EventStrategy::BottomUp
-    }
-}
+// /// Defines the strategy of an event how it moves through the tree.
+// #[derive(Debug, Clone, PartialEq)]
+// pub enum EventStrategy {
+//     // /// From root to leaf.
+//     // TopDown,
+//     /// From leaf to root.
+//     BottomUp,
 
-pub type EventHandlerMap = BTreeMap<Entity, Vec<Rc<dyn EventHandler>>>;
+//     /// Occurs direct.
+//     Direct,
+// }
 
-pub type TriggerHandler = dyn Fn(&mut StatesContext, Entity) + 'static;
+// /// Used to define an event.
+// pub trait Event: Any {
+//     fn strategy(&self) -> EventStrategy {
+//         EventStrategy::BottomUp
+//     }
+// }
+
+// pub type EventHandlerMap = BTreeMap<Entity, Vec<Rc<dyn EventHandler>>>;
+
+// pub type TriggerHandler = dyn Fn(&mut StatesContext, Entity) + 'static;

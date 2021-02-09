@@ -1,10 +1,10 @@
 //! Immediate mode user interface (ui) shell.
 
-//! Immediate mode user interface (ui) shell.
-
 use dces::prelude::*;
 
-use crate::{tree::*, utils::*};
+use orbtk_tinyskia::RenderContext2D;
+
+use orbtk_base::{localization::*, theming::Theme, tree::*, utils::*};
 
 /// Represents an immediate mode user interface (ui) shell.
 ///
@@ -45,6 +45,10 @@ impl Shell {
     pub fn resize(&mut self, width: u32, height: u32) {
         self.size = (width, height);
         self.frame_buffer = vec![0; width as usize * height as usize * 4];
+
+        if let Some(rtx) = self.world.try_resource_mut::<RenderContext2D>() {
+            rtx.resize(width as f64, height as f64);
+        }
         // todo: render
     }
 
@@ -125,7 +129,9 @@ impl Shell {
         // rctx.set_fill_brush("blue");
         // rctx.fill_rect(self.dummy_pos.0 as f64, self.dummy_pos.1 as f64, 200., 200.);
 
-        // self.frame_buffer.copy_from_slice(rctx.frame_buffer());
+        if let Some(rtx) = self.world.try_resource_mut::<RenderContext2D>() {
+            self.frame_buffer.copy_from_slice(rtx.data());
+        }
 
         // todo: iterator over all entities by name, build query with render component parts like text and text style
     }
@@ -162,6 +168,18 @@ impl ShellBuilder {
         self
     }
 
+    /// Builder method that is used to specify the theme of the ui.
+    pub fn theme(mut self, theme: impl Into<Theme>) -> Self {
+        self.world.insert_resource(theme.into());
+        self
+    }
+
+    /// Builder method that is used to specify the localization service that is used to localize the ui.
+    pub fn localization(mut self, localization: impl Into<Localization>) -> Self {
+        self.world.insert_resource(localization.into());
+        self
+    }
+
     /// Builder method to define the ui of the shell.
     ///
     /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
@@ -173,13 +191,29 @@ impl ShellBuilder {
 
     /// Creates a new shell with the given builder settings.
     pub fn build(self) -> Shell {
-        Shell {
+        let mut shell = Shell {
             world: self.world,
             frame_buffer: vec![0; self.size.0 as usize * self.size.1 as usize * 4],
             size: self.size,
             mouse_position: Point::default(),
             mouse_button_states: (false, false, false),
             dummy_pos: (0, 0),
-        }
+        };
+
+        insert_default_resources(&mut shell);
+
+        shell
     }
 }
+
+// [START] Helpers
+
+// Insert default resources to the shells world.
+pub fn insert_default_resources(shell: &mut Shell) {
+    shell.world.insert_resource(RenderContext2D::new(
+        shell.size.0 as f64,
+        shell.size.0 as f64,
+    ));
+}
+
+// [END] Helpers

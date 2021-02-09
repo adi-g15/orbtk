@@ -1,8 +1,18 @@
 //! The Orbital Widget Toolkit is a cross-platform (G)UI toolkit.
 
+pub mod events {
+    //! This module contains all resources to call and handle events.
+    pub use orbtk_base::events::*;
+}
+
 pub mod utils {
     //! Helper utils and traits for OrbTk.
     pub use orbtk_base::utils::*;
+}
+
+pub mod localization {
+    //! Localization service that is used to localize the ui.
+    pub use orbtk_base::localization::*;
 }
 
 // im features excludes the orbclient app and window implementation
@@ -14,7 +24,7 @@ pub mod orbclient {
 
 pub mod shell {
     //! Immediate mode user interface (ui) shell for OrbTk.
-    pub use orbtk_base::shell::*;
+    pub use orbtk_shell::*;
 }
 
 pub mod tinyskia {
