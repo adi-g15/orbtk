@@ -26,3 +26,11 @@ pub mod widgets {
     //! Integrated default OrbTk widget library with different themes.
     pub use orbtk_widgets::*;
 }
+
+pub use self::utils::*;
+
+#[cfg(not(feature = "im"))]
+pub use self::orbclient::*;
+
+pub use self::tinyskia::*;
+pub use self::widgets::*;

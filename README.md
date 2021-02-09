@@ -298,7 +298,7 @@ sudo apt install cmake
 
 If you have trouble to build and run the examples or you don't want to use a C compiler check the backend section please? It contains alternatives.
 
-You can find examples in the `examples/` directory.
+You can find examples in the `orbtk/examples/` directory. There is also a *README* located with more details about the examples.
 
 You can start the showcase example by executing the following command:
 
