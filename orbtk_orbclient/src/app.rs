@@ -6,7 +6,7 @@ pub struct App {
 }
 
 impl App {
-    /// Creates a new app builder that is used to configure the app.
+    /// Creates a new app, that can be configured using the builder pattern,.
     ///
     /// # Examples
     ///
@@ -14,17 +14,23 @@ impl App {
     /// use orbtk_orbclient::{App, Window};
     /// // use orbtk::orbclient::{App, Window};
     ///
-    /// App::create().window(
+    /// App::new().window(
     ///    Window::create().position(0, 0).size(640, 480).title("Window")
     /// ).unwrap().start();
     /// ```
-    pub fn create() -> AppBuilder {
-        AppBuilder::new()
+    pub fn new() -> App {
+        App { windows: vec![] }
     }
 
-    // start and runs the application (not wasm32 target)
+    /// Builder method that is used add a new window to the app.
+    pub fn window(mut self, builder: WindowBuilder) -> Result<Self, Error> {
+        self.windows.push(builder.build()?);
+        Ok(self)
+    }
+
+    // Starts and runs the application (not wasm32 target)
     #[cfg(not(target_arch = "wasm32"))]
-    fn start(mut self) {
+    pub fn start(mut self) {
         // todo: handle animation loop.
         loop {
             if !self.run() {
@@ -33,9 +39,9 @@ impl App {
         }
     }
 
-    // start and runs the application (wasm32 target)
+    // Starts and runs the application (wasm32 target)
     #[cfg(target_arch = "wasm32")]
-    fn start(mut self) {
+    pub fn start(mut self) {
         animation_loop(move || self.run());
     }
 
@@ -54,31 +60,5 @@ impl App {
         }
 
         return true;
-    }
-}
-
-/// App builder is used to configure, create and start an app.
-pub struct AppBuilder {
-    windows: Vec<Window>,
-}
-
-impl AppBuilder {
-    // Creates a new app builder.
-    fn new() -> Self {
-        AppBuilder { windows: vec![] }
-    }
-
-    /// Builder method that is used add a new window to the app.
-    pub fn window(mut self, builder: WindowBuilder) -> Result<Self, Error> {
-        self.windows.push(builder.build()?);
-        Ok(self)
-    }
-
-    /// Starts the application.
-    pub fn start(self) {
-        App {
-            windows: self.windows,
-        }
-        .start()
     }
 }

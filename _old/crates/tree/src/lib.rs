@@ -47,6 +47,16 @@ pub struct Tree {
 
 impl Tree {
     /// Creates a new tree with default values.
+    ///
+    ///     ```rust,no_run
+
+    // use orbtk_tree::prelude::*;
+
+    // let mut tree = Tree::new();
+    // tree.register_node(0);
+    // tree.register_node(1);
+    // tree.append_child(0, 1);
+    // ```
     pub fn new() -> Self {
         Tree::default()
     }

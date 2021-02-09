@@ -1,11 +1,13 @@
 use orbclient::Renderer;
 
+use orbtk_base::shell::*;
+
 use crate::Error;
 
 /// Defines a top-level window on the screen.
 pub struct Window {
     inner: orbclient::Window,
-    // shell: Shell,
+    shell: Shell,
 }
 
 impl Window {
@@ -93,9 +95,8 @@ impl Window {
 }
 
 /// Window builder is used to configure a window and create it.
-#[derive(Debug)]
 pub struct WindowBuilder {
-    // shell_builder: ShellBuilder,
+    shell_builder: ShellBuilder,
     position: (i32, i32),
     size: (u32, u32),
     title: String,
@@ -108,7 +109,7 @@ impl WindowBuilder {
     /// Creates a new window builder.
     fn new() -> Self {
         WindowBuilder {
-            // shell_builder: Shell::create(),
+            shell_builder: Shell::create(),
             position: (0, 0),
             size: (0, 0),
             title: String::default(),
@@ -213,7 +214,7 @@ impl WindowBuilder {
         ) {
             return Ok(Window {
                 inner,
-                // shell: self.shell_builder.build(),
+                shell: self.shell_builder.build(),
             });
         }
 

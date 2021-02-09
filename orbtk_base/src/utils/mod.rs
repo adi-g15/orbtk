@@ -13,7 +13,6 @@ mod gradients;
 mod number;
 mod orientation;
 mod point;
-pub mod prelude;
 mod rectangle;
 mod relative_direction;
 mod selection_mode;

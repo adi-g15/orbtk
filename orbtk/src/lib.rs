@@ -14,7 +14,7 @@ pub mod orbclient {
 
 pub mod shell {
     //! Immediate mode user interface (ui) shell for OrbTk.
-    pub use orbtk_shell::*;
+    pub use orbtk_base::shell::*;
 }
 
 pub mod tinyskia {

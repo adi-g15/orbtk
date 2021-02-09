@@ -1,7 +1,7 @@
 use orbtk::*;
 
 pub fn main() -> Result<(), Error> {
-    App::create()
+    App::new()
         .window(
             Window::create()
                 .title("orbtk: 1_hello_world example")

@@ -276,7 +276,6 @@ version = "0.4.0-alpha1-alpha4"
 dependencies = [
  "orbtk_base",
  "orbtk_orbclient",
- "orbtk_shell",
  "orbtk_tinyskia",
  "orbtk_widgets",
 ]
@@ -289,8 +288,10 @@ dependencies = [
  "lexical-core",
  "phf",
  "phf_codegen",
+ "raw-window-handle",
  "ron",
  "serde",
+ "serde_derive",
 ]
 
 [[package]]
@@ -298,13 +299,7 @@ name = "orbtk_orbclient"
 version = "0.4.0-alpha1"
 dependencies = [
  "orbclient",
-]
-
-[[package]]
-name = "orbtk_shell"
-version = "0.4.0-alpha1"
-dependencies = [
- "dces",
+ "orbtk_base",
 ]
 
 [[package]]
