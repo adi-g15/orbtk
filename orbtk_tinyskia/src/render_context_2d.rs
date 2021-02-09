@@ -629,7 +629,7 @@ impl RenderContext2D {
         );
     }
 
-    /// Return the pixmap data lenght as an [u32] reference value.
+    /// Return the pixmap data length as an [u32] reference value.
     pub fn data(&self) -> &[u32] {
         unsafe {
             slice::from_raw_parts(
