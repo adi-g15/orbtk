@@ -1,6 +1,6 @@
 [package]
 name = "orbtk_orbclient"
-version = "0.4.0"
+version = "0.4.0-alpha1"
 authors = ["Florian Blasius <flovanpt@posteo.de>"]
 description = "App and window implementation for OrbTk based on OrbClient."
 edition = "2018"

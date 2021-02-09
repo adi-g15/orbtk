@@ -1,6 +1,6 @@
 [package]
 name = "orbtk_shell"
-version = "0.4.0"
+version = "0.4.0-alpha1"
 authors = ["Florian Blasius <flovanpt@posteo.de>"]
 description = "Immediate mode user interface (ui) shell for OrbTk."
 edition = "2018"

@@ -1,6 +1,6 @@
 [package]
 name = "orbtk"
-version = "0.4.0-alpha4"
+version = "0.4.0-alpha1-alpha4"
 authors = [
     "Florian Blasius <flovanpt@posteo.de>",
     "Jeremy Soller <jackpot51@gmail.com>"
@@ -22,11 +22,11 @@ name = "orbtk"
 path = "src/lib.rs"
 
 [dependencies]
-orbtk_base = { version = "0.4.0", path = "../orbtk_base" }
-orbtk_orbclient = { version = "0.4.0", path = "../orbtk_orbclient", optional = true }
-orbtk_shell = { version = "0.4.0", path = "../orbtk_shell" }
-orbtk_tinyskia = { version = "0.4.0", path = "../orbtk_tinyskia" }
-orbtk_widgets = { version = "0.4.0", path = "../orbtk_widgets" }
+orbtk_base = { version = "0.4.0-alpha1", path = "../orbtk_base" }
+orbtk_orbclient = { version = "0.4.0-alpha1", path = "../orbtk_orbclient", optional = true }
+orbtk_shell = { version = "0.4.0-alpha1", path = "../orbtk_shell" }
+orbtk_tinyskia = { version = "0.4.0-alpha1", path = "../orbtk_tinyskia" }
+orbtk_widgets = { version = "0.4.0-alpha1", path = "../orbtk_widgets" }
 
 [features]
 default = ["orbtk_orbclient"]
