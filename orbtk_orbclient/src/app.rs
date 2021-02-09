@@ -22,23 +22,38 @@ impl App {
         AppBuilder::new()
     }
 
-    // start and runs the application
+    // start and runs the application (not wasm32 target)
     #[cfg(not(target_arch = "wasm32"))]
-    fn run(mut self) {
+    fn start(mut self) {
         // todo: handle animation loop.
         loop {
-            for i in 0..self.windows.len() {
-                // removes the window from the list if run returns false
-                if !self.windows[i].drain_events() {
-                    self.windows.remove(i);
-                }
-            }
-
-            // if no window is left, close the application.
-            if self.windows.is_empty() {
+            if !self.run() {
                 break;
             }
         }
+    }
+
+    // start and runs the application (wasm32 target)
+    #[cfg(target_arch = "wasm32")]
+    fn start(mut self) {
+        animation_loop(move || self.run());
+    }
+
+    // runs the loop
+    fn run(&mut self) -> bool {
+        for i in 0..self.windows.len() {
+            // removes the window from the list if run returns false
+            if !self.windows[i].drain_events() {
+                self.windows.remove(i);
+            }
+        }
+
+        // if no window is left, close the application.
+        if self.windows.is_empty() {
+            return false;
+        }
+
+        return true;
     }
 }
 
@@ -64,6 +79,6 @@ impl AppBuilder {
         App {
             windows: self.windows,
         }
-        .run()
+        .start()
     }
 }
