@@ -4,7 +4,7 @@ use dces::prelude::{Component, Entity};
 
 pub use dces::prelude::Resources;
 
-use crate::{event::EventHandler, properties::AttachedProperty, theming::Selector};
+use crate::{events::EventHandler, properties::AttachedProperty, theming::Selector};
 
 pub use self::build_context::*;
 pub use self::context::*;

@@ -10,7 +10,7 @@ use dces::prelude::*;
 use super::WindowAdapter;
 
 use crate::{
-    event::*,
+    events::*,
     layout::*,
     localization::Localization,
     render_object::*,

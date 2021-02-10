@@ -1,0 +1,12 @@
+[package]
+name = "orbtk_orbclient"
+version = "0.3.1-alpha4"
+authors = ["Florian Blasius <flovanpt@posteo.de>"]
+description = "App and window implementation for OrbTk based on OrbClient."
+edition = "2018"
+keywords = ["gui", "ui", "ecs"]
+
+[dependencies]
+orbtk_api = { version = "0.3.1-alpha4", path = "../orbtk_api"}
+orbtk_shell = { version = "0.3.1-alpha4", path = "../orbtk_shell"}
+orbclient = { git = "https://gitlab.redox-os.org/redox-os/orbclient.git", branch = "wasm" }

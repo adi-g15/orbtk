@@ -6,7 +6,7 @@ use crate::{
     shell::{Key, KeyEvent},
 };
 
-use super::{EventBox, EventHandler};
+use crate::events::{EventBox, EventHandler};
 
 #[derive(Event)]
 pub struct KeyDownEvent {

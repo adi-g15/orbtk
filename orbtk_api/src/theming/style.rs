@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::State;
+use super::state::State;
 
 use ron::Value;
 

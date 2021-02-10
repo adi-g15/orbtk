@@ -6,7 +6,7 @@ use crate::{
 };
 
 // --- KEYS --
-pub static STYLE_WINDOW: &str = "window";
+pub static STYLE_OldWindow: &str = "OldWindow";
 // --- KEYS --
 
 // internal type to handle dirty widgets.
@@ -14,35 +14,35 @@ type DirtyWidgets = Vec<Entity>;
 
 #[derive(Clone)]
 enum Action {
-    WindowEvent(WindowEvent),
+    OldWindowEvent(WindowEvent),
     FocusEvent(FocusEvent),
 }
 
-// The `WindowState` handles the window events.
+// The `OldWindowState` handles the OldWindow events.
 #[derive(Default, AsAny)]
-struct WindowState {
+struct OldWindowState {
     actions: VecDeque<Action>,
     background: Brush,
     title: String,
 }
 
-impl WindowState {
+impl OldWindowState {
     fn push_action(&mut self, action: Action) {
         self.actions.push_front(action);
     }
 
     fn resize(&self, width: f64, height: f64, ctx: &mut Context) {
-        Window::bounds_mut(&mut ctx.window()).set_size(width, height);
-        Window::constraint_mut(&mut ctx.window()).set_size(width, height);
+        OldWindow::bounds_mut(&mut ctx.window()).set_size(width, height);
+        OldWindow::constraint_mut(&mut ctx.window()).set_size(width, height);
     }
 
     fn active_changed(&self, active: bool, ctx: &mut Context) {
-        Window::active_set(&mut ctx.widget(), active);
+        OldWindow::active_set(&mut ctx.widget(), active);
 
         // if !active {
-        //     // remove focus if the window is not active
-        //     if let Some(focused_widget) = ctx.window().get::<Global>("global").focused_widget {
-        //         ctx.window().get_mut::<Global>("global").focused_widget = None;
+        //     // remove focus if the OldWindow is not active
+        //     if let Some(focused_widget) = ctx.OldWindow().get::<Global>("global").focused_widget {
+        //         ctx.OldWindow().get_mut::<Global>("global").focused_widget = None;
         //         if ctx.get_widget(focused_widget).has::<bool>("focused") {
         //             ctx.get_widget(focused_widget).set("focused", false);
         //             ctx.get_widget(focused_widget).update_theme_by_state(false);
@@ -52,15 +52,15 @@ impl WindowState {
     }
 
     fn request_focus(&self, entity: Entity, ctx: &mut Context) {
-        let mut focus_state: FocusState = Window::focus_state_clone(&ctx.widget());
+        let mut focus_state: FocusState = OldWindow::focus_state_clone(&ctx.widget());
         focus_state.request_focus(entity, ctx);
-        Window::focus_state_set(&mut ctx.widget(), focus_state);
+        OldWindow::focus_state_set(&mut ctx.widget(), focus_state);
     }
 
     fn remove_focus(&self, entity: Entity, ctx: &mut Context) {
-        let mut focus_state: FocusState = Window::focus_state_clone(&ctx.widget());
+        let mut focus_state: FocusState = OldWindow::focus_state_clone(&ctx.widget());
         focus_state.remove_focus(entity, ctx);
-        Window::focus_state_set(&mut ctx.widget(), focus_state);
+        OldWindow::focus_state_set(&mut ctx.widget(), focus_state);
     }
 
     fn set_background(&mut self, ctx: &mut Context, rtx: &mut RenderContext2D) {
@@ -72,27 +72,27 @@ impl WindowState {
     }
 }
 
-impl State for WindowState {
+impl State for OldWindowState {
     fn init(&mut self, ctx: &mut Context, res: &mut Resources) {
         self.set_background(ctx, res.get_mut::<RenderContext2D>());
         self.title = ctx.widget().clone("title");
     }
 
     fn update(&mut self, ctx: &mut Context, res: &mut Resources) {
-        if self.background != *Window::background_ref(&ctx.widget()) {
+        if self.background != *OldWindow::background_ref(&ctx.widget()) {
             self.set_background(ctx, res.get_mut::<RenderContext2D>());
         }
 
-        let window = ctx.widget();
+        let OldWindow = ctx.widget();
 
-        if !self.title.eq(Window::title_ref(&window)) {
-            self.title = Window::title_clone(&window);
+        if !self.title.eq(OldWindow::title_ref(&OldWindow)) {
+            self.title = OldWindow::title_clone(&OldWindow);
             ctx.send_window_request(WindowRequest::ChangeTitle(self.title.clone()));
         }
 
         if let Some(action) = self.actions.pop_front() {
             match action {
-                Action::WindowEvent(window_event) => match window_event {
+                Action::OldWindowEvent(window_event) => match window_event {
                     WindowEvent::Resize { width, height } => {
                         self.resize(width, height, ctx);
                     }
@@ -115,11 +115,11 @@ impl State for WindowState {
 }
 
 widget!(
-    /// The `Window` widget provides access to the properties of an application window.
+    /// The `OldWindow` widget provides access to the properties of an application OldWindow.
     /// It also contains global properties like keyboard modifier and focused widget.
     ///
-    /// **style:** `window`
-    Window<WindowState>: ActivateHandler {
+    /// **style:** `OldWindow`
+    OldWindow<OldWindowState>: ActivateHandler {
         /// Sets or shares the background property.
         background: Brush,
 
@@ -129,19 +129,19 @@ widget!(
         /// Sets or shares the resizeable property.
         resizeable: bool,
 
-        /// Sets or shares the property if this window should always be on top.
+        /// Sets or shares the property if this OldWindow should always be on top.
         always_on_top: bool,
 
-        /// Sets or shares the flag if the window is borderless.
+        /// Sets or shares the flag if the OldWindow is borderless.
         borderless: bool,
 
-        /// Sets or shares a value that describes if the current window is active.
+        /// Sets or shares a value that describes if the current OldWindow is active.
         active: bool,
 
         /// Access the current keyboard state e.g. to check modifiers.
         keyboard_state: KeyboardState,
 
-        /// Access the current window theme.
+        /// Access the current OldWindow theme.
         theme: Theme,
 
         /// Access the current focus state.
@@ -152,8 +152,8 @@ widget!(
     }
 );
 
-impl Window {
-    fn on_window_event<H: Fn(&mut StatesContext, WindowEvent) -> bool + 'static>(
+impl OldWindow {
+    fn on_OldWindow_event<H: Fn(&mut StatesContext, WindowEvent) -> bool + 'static>(
         self,
         handler: H,
     ) -> Self {
@@ -172,22 +172,22 @@ impl Window {
     }
 }
 
-impl Template for Window {
+impl Template for OldWindow {
     fn template(self, id: Entity, _: &mut BuildContext) -> Self {
-        self.name("Window")
+        self.name("OldWindow")
             .background(colors::BRIGHT_GRAY_COLOR)
             .size(100.0, 100.0)
-            .style(STYLE_WINDOW)
-            .title("Window")
+            .style(STYLE_OldWindow)
+            .title("OldWindow")
             .resizeable(false)
             .always_on_top(false)
-            .on_window_event(move |ctx, event| {
-                ctx.get_mut::<WindowState>(id)
-                    .push_action(Action::WindowEvent(event));
+            .on_OldWindow_event(move |ctx, event| {
+                ctx.get_mut::<OldWindowState>(id)
+                    .push_action(Action::OldWindowEvent(event));
                 true
             })
             .on_focus_event(move |ctx, event| {
-                ctx.get_mut::<WindowState>(id)
+                ctx.get_mut::<OldWindowState>(id)
                     .push_action(Action::FocusEvent(event));
                 true
             })

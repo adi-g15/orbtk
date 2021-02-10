@@ -1,4 +1,4 @@
-use crate::{event::Event, proc_macros::Event};
+use crate::{events::Event, proc_macros::Event};
 
 #[derive(Event)]
 pub enum SystemEvent {

@@ -6,7 +6,7 @@ fn main() {
 
     Application::new()
         .window(|ctx| {
-            Window::new()
+            OldWindow::new()
                 .title("OrbTk - minimal example")
                 .position((100.0, 100.0))
                 .size(420.0, 730.0)

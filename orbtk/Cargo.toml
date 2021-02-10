@@ -27,12 +27,12 @@ opt-level = 1
 [dependencies]
 orbtk_proc_macros = { version = "0.3.1-alpha4", path = "../orbtk_proc_macros" }
 orbtk_api = { version = "0.3.1-alpha4", path = "../orbtk_api", default-features = false }
-orbtk_localization = { version = "0.3.1-alpha4", path = "../orbtk_localization", default-features = false }
+orbtk_orbclient = { version = "0.3.1-alpha4", path = "../orbtk_orbclient", default-features = false }
 orbtk_render = { version = "0.3.1-alpha4", path = "../orbtk_render", default-features = false }
+orbtk_shell = { version = "0.3.1-alpha4", path = "../orbtk_shell", default-features = false }
 orbtk_shell_old = { version = "0.3.1-alpha4", path = "../orbtk_shell_old", default-features = false }
-orbtk_theming = { version = "0.3.1-alpha4", path="../orbtk_theming" }
 orbtk_utils = { version = "0.3.1-alpha4", path = "../orbtk_utils" }
-orbtk_widgets = { version = "0.3.1-alpha4", path="../widgets", default-features = false }
+orbtk_widgets = { version = "0.3.1-alpha4", path="../orbtk_widgets", default-features = false }
 dces = { git = "https://gitlab.redox-os.org/redox-os/dces-rust.git", branch = "develop" }
 
 [dev-dependencies]
@@ -42,6 +42,6 @@ serde = "1.0.106"
 serde_derive = "1.0.106"
 
 [features]
-default = ["orbtk_shell_old/orbraq", "orbtk_api/orbraq", "orbtk_render/orbraq", "orbtk_widgets/orbraq", "orbtk_localization/ron"]
+default = ["orbtk_shell_old/orbraq", "orbtk_api/orbraq", "orbtk_render/orbraq", "orbtk_widgets/orbraq"]
 log = ["orbtk_shell_old/log"]
 debug = ["orbtk_api/debug"]

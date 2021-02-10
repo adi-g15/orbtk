@@ -5,7 +5,7 @@ It provides fonts, icons and colors.
 
  */
 
-use orbtk_theming::{config::ThemeConfig, prelude::*};
+use orbtk_api::theming::{config::ThemeConfig, *};
 
 use super::default::{register_default_fonts, MATERIAL_ICONS};
 

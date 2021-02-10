@@ -9,7 +9,7 @@ pub use std::{
 use dces::prelude::*;
 
 use crate::{
-    event::*,
+    events::*,
     layout::{AbsoluteLayout, Layout},
     proc_macros::WidgetCtx,
     properties::*,

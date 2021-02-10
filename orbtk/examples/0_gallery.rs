@@ -17,7 +17,7 @@ fn main() {
         .theme(theme_default())
         .localization(localization)
         .window(|ctx| {
-            Window::new()
+            OldWindow::new()
                 .title("OrbTk - showcase example")
                 .position((100, 100))
                 .size(1000, 730)
@@ -348,7 +348,7 @@ impl Template for ImageView {
         self.child(
             ImageWidget::new()
                 .margin(16)
-                .image("assets/showcase/orbtk_logo.png")
+                .image("orbtk/assets/showcase/orbtk_logo.png")
                 .build(ctx),
         )
     }

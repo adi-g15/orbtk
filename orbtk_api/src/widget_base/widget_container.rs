@@ -2,7 +2,7 @@ use std::any::type_name;
 
 use dces::prelude::*;
 
-use crate::{event::ChangedEvent, event::*, theming::*, tree::*, utils::prelude::*};
+use crate::{events::ChangedEvent, events::*, theming::*, tree::*, utils::prelude::*};
 
 /// Mark the widget and shared widgets as dirty.
 pub fn mark_as_dirty(key: &str, entity: Entity, ecm: &mut EntityComponentManager<Tree>) {

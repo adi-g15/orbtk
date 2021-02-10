@@ -28,6 +28,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "approx"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f0e60b75072ecd4168020818c0107f2857bb6c4e64252d8d3983f6263b40a5c3"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "arrayvec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -199,6 +208,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "euc"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "844ab0487231b70e1ade30559e7a4f115881592cb9d2be0def91657d7e2604f5"
+dependencies = [
+ "vek",
+]
+
+[[package]]
 name = "euclid"
 version = "0.20.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -300,6 +318,15 @@ name = "itoa"
 version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd25036021b0de88a0aff6b850051563c6516d0bf53f8638938edbb9de732736"
+
+[[package]]
+name = "js-sys"
+version = "0.3.47"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5cfb73131c35423a367daf8cbd24100af0d077668c8c2943f0e7dd775fef0f65"
+dependencies = [
+ "wasm-bindgen",
+]
 
 [[package]]
 name = "lazy_static"
@@ -441,6 +468,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "orbclient"
+version = "0.3.30"
+source = "git+https://gitlab.redox-os.org/redox-os/orbclient.git?branch=wasm#c7266277265287de56e436ff8565016ad8748860"
+dependencies = [
+ "libc",
+ "raw-window-handle",
+ "redox_syscall",
+ "sdl2",
+ "sdl2-sys",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
+name = "orbtk"
+version = "0.3.1-alpha4"
+dependencies = [
+ "dces",
+ "euc",
+ "orbtk_api",
+ "orbtk_orbclient",
+ "orbtk_proc_macros",
+ "orbtk_render",
+ "orbtk_shell",
+ "orbtk_shell_old",
+ "orbtk_utils",
+ "orbtk_widgets",
+ "serde",
+ "serde_derive",
+ "vek",
+]
+
+[[package]]
 name = "orbtk_api"
 version = "0.3.1-alpha4"
 dependencies = [
@@ -448,11 +508,9 @@ dependencies = [
  "derive_more",
  "dirs-next",
  "memchr",
- "orbtk_localization",
  "orbtk_proc_macros",
  "orbtk_render",
  "orbtk_shell_old",
- "orbtk_theming",
  "orbtk_utils",
  "raw-window-handle",
  "ron",
@@ -464,12 +522,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "orbtk_localization"
+name = "orbtk_orbclient"
 version = "0.3.1-alpha4"
 dependencies = [
- "ron",
- "serde",
- "serde_derive",
+ "orbclient 0.3.30 (git+https://gitlab.redox-os.org/redox-os/orbclient.git?branch=wasm)",
+ "orbtk_api",
+ "orbtk_shell",
 ]
 
 [[package]]
@@ -494,25 +552,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "orbtk_shell"
+version = "0.3.1-alpha4"
+dependencies = [
+ "dces",
+ "orbtk_api",
+ "orbtk_render",
+ "orbtk_utils",
+]
+
+[[package]]
 name = "orbtk_shell_old"
 version = "0.3.1-alpha4"
 dependencies = [
  "image",
  "lazy_static",
- "orbclient",
+ "orbclient 0.3.30 (git+https://gitlab.redox-os.org/redox-os/orbclient.git)",
  "orbtk_render",
  "orbtk_utils",
  "raw-window-handle",
  "sdl2",
-]
-
-[[package]]
-name = "orbtk_theming"
-version = "0.3.1-alpha4"
-dependencies = [
- "ron",
- "serde",
- "serde_derive",
 ]
 
 [[package]]
@@ -537,7 +596,6 @@ dependencies = [
  "orbtk_proc_macros",
  "orbtk_render",
  "orbtk_shell_old",
- "orbtk_theming",
  "orbtk_utils",
  "rust_decimal",
 ]
@@ -1019,6 +1077,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "vek"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b5ec6f1e1336c875817faba09752eeac76aa0c51c304b9030cbfcd0daf5e217"
+dependencies = [
+ "approx",
+ "num-integer",
+ "num-traits",
+ "rustc_version",
+ "serde",
+ "static_assertions",
+]
+
+[[package]]
 name = "version-compare"
 version = "0.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1089,6 +1161,16 @@ name = "wasm-bindgen-shared"
 version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd4945e4943ae02d15c13962b38a5b1e81eadd4b71214eee75af64a4d6a4fd64"
+
+[[package]]
+name = "web-sys"
+version = "0.3.47"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c40dc691fc48003eba817c38da7113c15698142da971298003cac3ef175680b3"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+]
 
 [[package]]
 name = "winapi"

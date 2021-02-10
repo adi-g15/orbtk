@@ -2,7 +2,7 @@ use std::sync::{mpsc, Arc, Mutex};
 
 use dces::entity::Entity;
 
-use crate::{event::*, shell::WindowRequest};
+use crate::{events::*, shell::WindowRequest};
 
 /// The `EventAdapter` provides a thread safe way to push events to the widget tree of a window.
 ///

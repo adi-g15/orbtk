@@ -4,7 +4,7 @@ use dces::prelude::*;
 
 use crate::{
     application::*,
-    event::*,
+    events::*,
     localization::Localization,
     render::RenderContext2D,
     services::{Clipboard, Settings},

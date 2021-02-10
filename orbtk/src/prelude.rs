@@ -10,11 +10,12 @@ pub use dces::prelude::*;
 
 pub use crate::{
     api::prelude::*,
-    localization::prelude::*,
+    orbclient::*,
     proc_macros::*,
     render::prelude::*,
+    shell::*,
     themes::{default::*, fluent::*, redox::*},
-    theming::prelude::*,
+    theming::*,
     tree::*,
     utils::prelude::*,
     widgets::prelude::*,

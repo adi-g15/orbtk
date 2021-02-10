@@ -2,9 +2,10 @@ use std::collections::HashMap;
 
 use ron::Value;
 
-use crate::{
+use super::{
     config::{ThemeConfig, RESOURCE_KEY},
-    Selector, State, Style,
+    state::State,
+    Selector, Style,
 };
 
 /// Theme is used to read properties for a given selector with a internal state.

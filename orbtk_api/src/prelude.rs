@@ -3,8 +3,9 @@ pub use std::rc::Rc;
 
 // crates modules
 pub use crate::application::*;
-pub use crate::event::*;
+pub use crate::events::*;
 pub use crate::layout::*;
+pub use crate::localization::*;
 pub use crate::macros::*;
 pub use crate::properties::*;
 pub use crate::render_object::*;

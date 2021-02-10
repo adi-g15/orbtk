@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::localization::Localization;
+use super::Localization;
 
 use dictionary::Dictionary;
 
@@ -80,6 +80,43 @@ impl Localization for RonLocalization {
         key
     }
 }
+
+// [START] Conversations
+
+impl From<(&str, String)> for RonLocalization {
+    fn from(d: (&str, String)) -> Self {
+        RonLocalization::create()
+            .dictionary(d.0, d.1.as_str())
+            .language(d.1)
+            .build()
+    }
+}
+
+impl From<(String, String)> for RonLocalization {
+    fn from(d: (String, String)) -> Self {
+        RonLocalization::create()
+            .dictionary(d.0, d.1.as_str())
+            .language(d.1)
+            .build()
+    }
+}
+
+impl From<(&str, &str)> for RonLocalization {
+    fn from(d: (&str, &str)) -> Self {
+        RonLocalization::create()
+            .dictionary(d.0, d.1)
+            .language(d.1)
+            .build()
+    }
+}
+
+impl From<RonLocalizationBuilder> for RonLocalization {
+    fn from(b: RonLocalizationBuilder) -> Self {
+        b.build()
+    }
+}
+
+// [END] Conversations
 
 #[cfg(test)]
 mod tests {

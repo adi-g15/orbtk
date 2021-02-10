@@ -8,7 +8,7 @@ use crate::{
     application::{create_window, ContextProvider},
     prelude::*,
     shell::{ShellRequest, WindowRequest},
-    theming::prelude::*,
+    theming::*,
     tree::Tree,
 };
 
