@@ -4,7 +4,12 @@ use dces::prelude::*;
 
 use orbtk_render::RenderContext2D;
 
-use orbtk_api::{localization::*, localization::*, theming::Theme, tree::*};
+use orbtk_api::{
+    localization::*,
+    theming::Theme,
+    tree::*,
+    widget_base::{BuildContext, Widget},
+};
 use orbtk_utils::*;
 
 /// Represents an immediate mode user interface (ui) shell.
@@ -181,16 +186,23 @@ impl ShellBuilder {
         self
     }
 
-    // todo register fonts and resources
-
-    /// Builder method to define the ui of the shell.
+    /// Builder method to define a widget as root of the shells ui.
     ///
     /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
-    // pub fn ui<F: Fn(&mut BuildContext)>(mut self, builder: F) -> Self {
-    //     let mut ctx = BuildContext::new(&mut self.world);
-    //     builder(&mut ctx);
-    //     self
-    // }
+    pub fn ui(mut self, ui: impl Widget) -> Self {
+        self
+    }
+
+    /// Builder method to define a widget creation function that returns a widget as root of the ui's shell.
+    ///
+    /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
+    pub fn ui_btx<W, F>(mut self, _ui: F) -> Self
+    where
+        W: Widget + 'static,
+        F: FnOnce(&mut BuildContext) -> W + 'static,
+    {
+        self
+    }
 
     /// Creates a new shell with the given builder settings.
     pub fn build(self) -> Shell {

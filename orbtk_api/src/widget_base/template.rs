@@ -15,7 +15,7 @@ pub trait Template: Sized {
     ///
     /// # Arguments
     /// * `_id`: The id (Entity) of the instantiated widget in the Entity Store
-    /// * `_context`: The BuildContext used to build and instantiate new widgets
+    /// * `_btx`: The BuildContext used to build and instantiate new widgets
     ///
     /// # Example
     /// Define a widget called MyWidget with min, max and val properties with type of usize,
@@ -29,7 +29,7 @@ pub trait Template: Sized {
     /// });
     ///
     /// impl Template for MyWidget {
-    ///     fn template(self, _id: Entity, context: &mut BuildContext) -> Self {
+    ///     fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
     ///         self.name("MyWidget")
     ///             .min(100)
     ///             .max(1000)
@@ -46,7 +46,7 @@ pub trait Template: Sized {
     ///     }
     /// }
     /// ```
-    fn template(self, _id: Entity, _ctx: &mut BuildContext) -> Self {
+    fn template(self, _id: Entity, _btx: &mut BuildContext) -> Self {
         self
     }
 

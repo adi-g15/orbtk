@@ -1,6 +1,10 @@
 use orbclient::Renderer;
 
-use orbtk_api::{localization::*, theming::*};
+use orbtk_api::{
+    localization::*,
+    theming::*,
+    widget_base::{BuildContext, Widget},
+};
 use orbtk_shell::*;
 
 use crate::Error;
@@ -178,16 +182,25 @@ impl WindowBuilder {
         self
     }
 
-    /// Builder method to define the ui of the window.
+    /// Builder method to define a widget as root of the shells ui.
     ///
     /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
-    // pub fn ui<F: Fn(&mut BuildContext)>(mut self, builder: F) -> Self {
-    //     self.shell_builder = self
-    //         .shell_builder
-    //         .size(self.size.0, self.size.1)
-    //         .ui(builder);
-    //     self
-    // }
+    pub fn ui(mut self, ui: impl Widget) -> Self {
+        self.shell_builder = self.shell_builder.ui(ui);
+        self
+    }
+
+    /// Builder method to define a widget creation function that returns a widget as root of the ui's shell.
+    ///
+    /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
+    pub fn ui_btx<W, F>(mut self, ui: F) -> Self
+    where
+        W: Widget + 'static,
+        F: FnOnce(&mut BuildContext) -> W + 'static,
+    {
+        self.shell_builder = self.shell_builder.ui_btx(ui);
+        self
+    }
 
     /// Creates a new window with the given builder settings.
     pub fn build(self) -> Result<Window, Error> {
