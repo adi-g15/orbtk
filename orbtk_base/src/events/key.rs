@@ -1,9 +1,10 @@
 use std::rc::Rc;
 
+use orbtk_proc_macros::{Event, IntoHandler};
+
 use crate::{
-    prelude::*,
-    proc_macros::*,
-    shell::{Key, KeyEvent},
+    events::{key_event::*, Event},
+    widget_base::*,
 };
 
 use super::{EventBox, EventHandler};

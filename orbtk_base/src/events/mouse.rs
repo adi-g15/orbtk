@@ -1,10 +1,11 @@
 use std::rc::Rc;
 
+use orbtk_proc_macros::{Event, IntoHandler};
+
 use crate::{
-    prelude::*,
-    proc_macros::{Event, IntoHandler},
-    shell::MouseButton,
+    events::{mouse_event::*, Event, EventBox, EventHandler},
     utils::*,
+    widget_base::*,
 };
 
 /// Checks if the given point is inside of a widget.

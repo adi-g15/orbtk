@@ -1,8 +1,10 @@
 use std::rc::Rc;
 
-use super::*;
+use orbtk_proc_macros::{Event, IntoHandler};
 
-use crate::{proc_macros::*, widget_base::*};
+use crate::{events::Event, widget_base::*};
+
+use super::{EventBox, EventHandler};
 
 #[derive(Clone, Event)]
 pub enum WindowEvent {

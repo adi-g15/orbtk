@@ -1,6 +1,10 @@
 use std::rc::Rc;
 
-use crate::{prelude::*, proc_macros::*};
+use orbtk_proc_macros::{Event, IntoHandler};
+
+use crate::{events::Event, widget_base::*};
+
+use super::{EventBox, EventHandler};
 
 /// The text input occurs if the keyboard registers a text input.
 #[derive(Clone, Default, Debug, Event)]

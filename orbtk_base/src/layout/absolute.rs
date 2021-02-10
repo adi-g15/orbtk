@@ -2,10 +2,9 @@ use std::{cell::RefCell, collections::BTreeMap};
 
 use dces::prelude::*;
 
-use crate::{
-    proc_macros::IntoLayout, render::RenderContext2D, theming::*, tree::Tree, utils::*,
-    widget_base::mark_as_dirty,
-};
+use orbtk_proc_macros::IntoLayout;
+
+use crate::{theming::*, tree::Tree, utils::*, widget_base::mark_as_dirty};
 
 use super::{component, component_try_mut, Layout};
 
