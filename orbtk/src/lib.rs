@@ -1,7 +1,7 @@
 #![crate_name = "orbtk"]
 #![crate_type = "lib"]
 
-pub use orbtk_shell::prelude::initialize;
+pub use orbtk_shell_old::prelude::initialize;
 
 pub mod api {
     pub use orbtk_api::*;
@@ -20,7 +20,7 @@ pub mod render {
 }
 
 pub mod shell {
-    pub use orbtk_shell::*;
+    pub use orbtk_shell_old::*;
 }
 
 pub mod theming {

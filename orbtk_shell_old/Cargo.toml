@@ -1,5 +1,5 @@
 [package]
-name = "orbtk_shell"
+name = "orbtk_shell_old"
 version = "0.3.1-alpha4"
 authors = ["Florian Blasius <flovanpt@posteo.de>"]
 description = "Window shell crate used by OrbTk."
@@ -23,8 +23,8 @@ lazy_static = "1.4.0"
 raw-window-handle = "0.3"
 
 # orbtk
-orbtk_render = { path = "../render", version = "0.3.1-alpha4", default-features = false }
-orbtk_utils = { path = "../utils", version = "0.3.1-alpha4" }
+orbtk_render = { path = "../orbtk_render", version = "0.3.1-alpha4", default-features = false }
+orbtk_utils = { path = "../orbtk_utils", version = "0.3.1-alpha4" }
 
 [features]
 default = ["orbclient", "sdl2"]

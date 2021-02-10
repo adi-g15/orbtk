@@ -1,0 +1,47 @@
+[package]
+name = "orbtk"
+version = "0.3.1-alpha4"
+authors = [
+    "Florian Blasius <flovanpt@posteo.de>",
+    "Jeremy Soller <jackpot51@gmail.com>"
+]
+description = "The Orbital Widget Toolkit"
+documentation = "https://docs.rs/orbtk"
+repository = "https://github.com/redox-os/orbtk"
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "orbital",
+    "redox",
+    "ui",
+]
+edition = "2018"
+
+[lib]
+name = "orbtk"
+path = "src/lib.rs"
+
+[profile.dev]
+opt-level = 1
+
+[dependencies]
+orbtk_proc_macros = { version = "0.3.1-alpha4", path = "../orbtk_proc_macros" }
+orbtk_api = { version = "0.3.1-alpha4", path = "../orbtk_api", default-features = false }
+orbtk_localization = { version = "0.3.1-alpha4", path = "../orbtk_localization", default-features = false }
+orbtk_render = { version = "0.3.1-alpha4", path = "../orbtk_render", default-features = false }
+orbtk_shell_old = { version = "0.3.1-alpha4", path = "../orbtk_shell_old", default-features = false }
+orbtk_theming = { version = "0.3.1-alpha4", path="../orbtk_theming" }
+orbtk_utils = { version = "0.3.1-alpha4", path = "../orbtk_utils" }
+orbtk_widgets = { version = "0.3.1-alpha4", path="../widgets", default-features = false }
+dces = { git = "https://gitlab.redox-os.org/redox-os/dces-rust.git", branch = "develop" }
+
+[dev-dependencies]
+euc = "0.5.0"
+vek = { version = "0.12.1", default-features = false, features = ["rgb", "rgba"] }
+serde = "1.0.106"
+serde_derive = "1.0.106"
+
+[features]
+default = ["orbtk_shell_old/orbraq", "orbtk_api/orbraq", "orbtk_render/orbraq", "orbtk_widgets/orbraq", "orbtk_localization/ron"]
+log = ["orbtk_shell_old/log"]
+debug = ["orbtk_api/debug"]

@@ -7,7 +7,7 @@ pub mod prelude;
 pub(crate) use orbtk_api as api;
 pub(crate) use orbtk_proc_macros as proc_macros;
 pub(crate) use orbtk_render as render;
-pub(crate) use orbtk_shell as shell;
+pub(crate) use orbtk_shell_old as shell;
 
 pub mod behaviors;
 mod button;
