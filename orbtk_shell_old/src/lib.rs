@@ -33,10 +33,6 @@ pub mod window_adapter;
 
 pub use orbtk_utils::prelude as utils;
 
-#[cfg(all(
-    not(target_arch = "wasm32"),
-    any(feature = "default", feature = "orbraq")
-))]
 #[path = "orbclient/mod.rs"]
 pub mod platform;
 

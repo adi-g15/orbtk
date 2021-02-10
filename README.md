@@ -345,23 +345,6 @@ cargo node run --target electron --example showcase
 cargo node run --target android --example showcase
 ```
 
-## OrbTk backends
-
-At the moment will evaluate different backends for OrbTk. A OrbTk backend consists of two different parts, window / events and rendering. OrbTk provides at the moment the following backends:
-
-### orbraq (default)
-
-* default backend for Redox, Linux, macOS and Windows (default feature)
-* window and events based on [OrbClient](https://gitlab.redox-os.org/redox-os/orbclient)
-* 2D rendering based on [raqote](https://github.com/jrmuizel/raqote)
-* Known issues: window does not redraw while resizing
-
-### stdweb
-
-* default backend for web (default feature)
-* window, events and 2D rendering based on [stdweb](https://github.com/koute/stdweb)
-* Does not yet support all features of `orbraq` e.g. DropEvents, Clipboard access 
-
 ## Documentation
 
 ### Build and open documentation

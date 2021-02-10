@@ -181,6 +181,8 @@ impl ShellBuilder {
         self
     }
 
+    // todo register fonts and resources
+
     /// Builder method to define the ui of the shell.
     ///
     /// An ui can only be set once. If the method is multiple called, the last set ui will be used.

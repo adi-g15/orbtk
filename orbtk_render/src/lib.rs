@@ -3,25 +3,18 @@
 use std::{any::Any, fmt};
 
 pub mod prelude;
-
-pub use orbtk_utils::prelude as utils;
-
-#[cfg(all(any(feature = "default", feature = "orbraq")))]
+mod render_context_2d;
+mod render_target;
 mod common;
-
-#[cfg(any(feature = "default", feature = "orbraq", target_arch = "wasm32"))]
-pub use self::platform::*;
-
-#[cfg(all(
-    not(target_arch = "wasm32"),
-    any(feature = "default", feature = "orbraq"),
-))]
-#[path = "raqote/mod.rs"]
-pub mod platform;
+mod font;
+mod image;
 
 pub use self::render_target::*;
+pub use self::render_context_2d::*;
+pub use self::font::*;
+pub use self::image::Image;
 
-mod render_target;
+pub use orbtk_utils::prelude as utils;
 
 /// Defines the current configuration of the render ctx.
 #[derive(Debug, Clone)]

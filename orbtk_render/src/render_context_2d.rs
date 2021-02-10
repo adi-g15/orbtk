@@ -1,13 +1,9 @@
 use smallvec::SmallVec;
 use std::{cmp, collections::HashMap};
 
-use crate::{common::*, utils::*, PipelineTrait, RenderConfig, RenderTarget, TextMetrics};
-
-pub use self::font::*;
-pub use self::image::Image;
-
-mod font;
-mod image;
+use crate::{
+    common::*, utils::*, Font, Image, PipelineTrait, RenderConfig, RenderTarget, TextMetrics,
+};
 
 type StatesOnStack = [(RenderConfig, PathRect, usize); 2];
 

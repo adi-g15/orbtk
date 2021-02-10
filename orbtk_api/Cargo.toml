@@ -33,6 +33,5 @@ threadpool = "1.8"
 stdweb = "0.4"
 
 [features]
-default = ["orbtk_shell_old/orbraq"]
-orbraq = ["orbtk_shell_old/orbraq"]
+default = []
 debug = []

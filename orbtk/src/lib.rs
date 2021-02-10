@@ -1,8 +1,6 @@
 #![crate_name = "orbtk"]
 #![crate_type = "lib"]
 
-pub use orbtk_shell_old::prelude::initialize;
-
 pub mod api {
     pub use orbtk_api::*;
 }

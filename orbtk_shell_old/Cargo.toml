@@ -28,5 +28,4 @@ orbtk_utils = { path = "../orbtk_utils", version = "0.3.1-alpha4" }
 
 [features]
 default = ["orbclient", "sdl2"]
-orbraq = ["orbclient", "sdl2"]
 log = []

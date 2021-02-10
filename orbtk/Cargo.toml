@@ -42,6 +42,6 @@ serde = "1.0.106"
 serde_derive = "1.0.106"
 
 [features]
-default = ["orbtk_shell_old/orbraq", "orbtk_api/orbraq", "orbtk_render/orbraq", "orbtk_widgets/orbraq"]
+default = []
 log = ["orbtk_shell_old/log"]
 debug = ["orbtk_api/debug"]
