@@ -161,12 +161,12 @@ widget!(
     /// # Examples:
     /// Create a NumericBox with default values:
     /// ```rust
-    /// NumericBox::new().build(ctx)
+    /// NumericBox::new(), btx
     /// ```
     ///
     /// Create a NumericBox with custom values:
     /// ```rust
-    /// NumericBox::new().min(10.0).max(100.0).val(50.0).step(5.0).build(ctx)
+    /// NumericBox::new().min(10.0).max(100.0).val(50.0).step(5.0), btx
     /// ```
     NumericBox<NumericBoxState>: ActivateHandler, KeyDownHandler {
         /// Sets or shares the background color property
@@ -222,7 +222,7 @@ widget!(
 );
 
 impl Template for NumericBox {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("NumericBox")
             .style("numeric_box")
             .background("transparent")
@@ -253,8 +253,8 @@ impl Template for NumericBox {
                             .get_mut::<NumericBoxState>(id)
                             .action(InputAction::ChangeByMouseScroll(delta));
                         true
-                    })
-                    .build(ctx),
+                    }),
+                btx,
             )
             .child(
                 Grid::new()
@@ -277,8 +277,8 @@ impl Template for NumericBox {
                             .enabled(false)
                             .v_align("center")
                             .text("0")
-                            .lose_focus_on_activation(id)
-                            .build(ctx),
+                            .lose_focus_on_activation(id),
+                        btx,
                     )
                     .child(
                         Button::new()
@@ -294,8 +294,8 @@ impl Template for NumericBox {
                                     .get_mut::<NumericBoxState>(id)
                                     .action(InputAction::Inc);
                                 true
-                            })
-                            .build(ctx),
+                            }),
+                        btx,
                     )
                     .child(
                         Button::new()
@@ -312,10 +312,10 @@ impl Template for NumericBox {
                                     .get_mut::<NumericBoxState>(id)
                                     .action(InputAction::Dec);
                                 true
-                            })
-                            .build(ctx),
-                    )
-                    .build(ctx),
+                            }),
+                        btx,
+                    ),
+                btx,
             )
             .on_key_down(move |states, event| -> bool {
                 states

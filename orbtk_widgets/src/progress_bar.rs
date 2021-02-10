@@ -64,12 +64,12 @@ widget!(
     ///
     /// This example creates a ProgressBar with default values:
     /// ```rust
-    /// ProgressBar::new().build(ctx)
+    /// ProgressBar::new(), btx
     /// ```
     ///
     /// The next example creates a ProgressBar initialized with 25% progress:
     /// ```rust
-    /// ProgressBar::new().val(0.25).build(ctx)
+    /// ProgressBar::new().val(0.25), btx
     /// ```
     ///
     /// The progress can be controlled by changing the value of the `val` property.
@@ -105,7 +105,7 @@ widget!(
 );
 
 impl Template for ProgressBar {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("ProgressBar")
             .style(STYLE_PROGRESS_BAR)
             .val(0.0)
@@ -125,8 +125,8 @@ impl Template for ProgressBar {
                     .background(("indicator_background", id))
                     .border_radius(("indicator_border_radius", id))
                     .width(0.0)
-                    .h_align("start")
-                    .build(ctx),
+                    .h_align("start"),
+                btx,
             )
     }
 

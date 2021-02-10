@@ -10,7 +10,7 @@ widget!(
     /// Create a cursor and share its text selection.
     ///
     /// ```rust
-    /// Cursor::new().selection(id).build(ctx)
+    /// Cursor::new().selection(id), btx
     /// ```
     Cursor {
         /// Defines the selection of that cursor that is shared with the `TextBehavior`.

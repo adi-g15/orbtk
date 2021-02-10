@@ -19,8 +19,8 @@ fn main() {
                 .position((100, 100))
                 .size(1000, 730)
                 .resizeable(true)
-                .child(MainView::new().build(ctx))
-                .build(ctx)
+                .child(MainView::new(), btx)
+                , btx
         })
         .run();
 }
@@ -31,17 +31,17 @@ fn main() {
 widget!(MainView {});
 
 impl Template for MainView {
-    fn template(self, _id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
         self.child(
             TabWidget::new()
-                .tab("Buttons / Text", ButtonView::new().build(ctx))
-                .tab("Items", ItemsView::new().build(ctx))
-                .tab("Layouts", LayoutView::new().build(ctx))
-                .tab("Image", ImageView::new().build(ctx))
-                .tab("Localization", LocalizationView::new().build(ctx))
-                .tab("Navigation", NavigationView::new().build(ctx))
-                .tab("Interactive", InteractiveView::new().build(ctx))
-                .build(ctx),
+                .tab("Buttons / Text", ButtonView::new(), btx)
+                .tab("Items", ItemsView::new(), btx)
+                .tab("Layouts", LayoutView::new(), btx)
+                .tab("Image", ImageView::new(), btx)
+                .tab("Localization", LocalizationView::new(), btx)
+                .tab("Navigation", NavigationView::new(), btx)
+                .tab("Interactive", InteractiveView::new(), btx)
+                , btx
         )
     }
 }
@@ -50,8 +50,8 @@ impl Template for MainView {
 widget!(ButtonView {});
 
 impl Template for ButtonView {
-    fn template(self, _id: Entity, ctx: &mut BuildContext) -> Self {
-        let slider = Slider::new().min(0.0).max(1.0).build(ctx);
+    fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
+        let slider = Slider::new().min(0.0).max(1.0).build(btx);
         self.child(
             Grid::new()
                 .margin(16)
@@ -69,64 +69,64 @@ impl Template for ButtonView {
                                 .on_leave(|_, _| {
                                     println!("Leave Button boundries");
                                 })
-                                .build(ctx),
+                                , btx
                         )
                         .child(
                             Button::new()
                                 .enabled(false)
                                 .text("disabled")
                                 .icon(material_icons_font::MD_CHECK)
-                                .build(ctx),
+                                , btx
                         )
                         .child(
                             Button::new()
                                 .text("Primary")
                                 .style("button_primary")
                                 .icon(material_icons_font::MD_360)
-                                .build(ctx),
+                                , btx
                         )
                         .child(
                             Button::new()
                                 .text("Text only")
                                 .style("button_single_content")
-                                .build(ctx),
+                                , btx
                         )
                         .child(
                             Button::new()
                                 .icon(material_icons_font::MD_CHECK)
                                 .style("button_single_content")
-                                .build(ctx),
+                                , btx
                         )
                         .child(
                             ToggleButton::new()
                                 .text("ToggleButton")
                                 .icon(material_icons_font::MD_ALARM_ON)
-                                .build(ctx),
+                                , btx
                         )
-                        .child(CheckBox::new().text("CheckBox").build(ctx))
-                        .child(CheckBox::new().enabled(false).text("disabled").build(ctx))
-                        .child(Switch::new().build(ctx))
-                        .child(Switch::new().enabled(false).build(ctx))
-                        .child(slider)
-                        .child(ProgressBar::new().val(slider).build(ctx))
-                        .build(ctx),
+                        .child(CheckBox::new().text("CheckBox"), btx)
+                        .child(CheckBox::new().enabled(false).text("disabled"), btx)
+                        .child(Switch::new(), btx)
+                        .child(Switch::new().enabled(false), btx)
+                        .child_entity(slider)
+                        .child(ProgressBar::new().val(slider), btx)
+                        , btx
                 )
                 .child(
                     Stack::new()
                         .attach(Grid::column(2))
                         .spacing(8)
-                        .child(TextBlock::new().text("Header").style("header").build(ctx))
-                        .child(TextBlock::new().text("Text").style("body").build(ctx))
-                        .child(TextBox::new().water_mark("Insert text...").build(ctx))
+                        .child(TextBlock::new().text("Header").style("header"), btx)
+                        .child(TextBlock::new().text("Text").style("body"), btx)
+                        .child(TextBox::new().water_mark("Insert text..."), btx)
                         .child(
                             PasswordBox::new()
                                 .water_mark("Insert password...")
-                                .build(ctx),
+                                , btx
                         )
-                        .child(NumericBox::new().max(123).step(0.123).val(0.123).build(ctx))
-                        .build(ctx),
+                        .child(NumericBox::new().max(123).step(0.123).val(0.123), btx)
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -137,7 +137,7 @@ type List = Vec<String>;
 widget!(ItemsView { items: List });
 
 impl Template for ItemsView {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         let items = vec![
             "Item 1".to_string(),
             "Item 2".to_string(),
@@ -154,7 +154,7 @@ impl Template for ItemsView {
                     TextBlock::new()
                         .text("ItemsWidget")
                         .style("header")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     ItemsWidget::new()
@@ -167,9 +167,9 @@ impl Template for ItemsView {
                                 .text(text)
                                 .build(bc)
                         })
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().text("ListView").style("header").build(ctx))
+                .child(TextBlock::new().text("ListView").style("header"), btx)
                 .child(
                     ListView::new()
                         .count(count)
@@ -177,9 +177,9 @@ impl Template for ItemsView {
                             let text = bc.get_widget(id).get::<Vec<String>>("items")[index].clone();
                             TextBlock::new().v_align("center").text(text).build(bc)
                         })
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().text("ComboBox").style("header").build(ctx))
+                .child(TextBlock::new().text("ComboBox").style("header"), btx)
                 .child(
                     ComboBox::new()
                         .count(count)
@@ -188,7 +188,7 @@ impl Template for ItemsView {
                             TextBlock::new().v_align("center").text(text).build(bc)
                         })
                         .selected_index(0)
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     ComboBox::new()
@@ -199,9 +199,9 @@ impl Template for ItemsView {
                             TextBlock::new().v_align("center").text(text).build(bc)
                         })
                         .selected_index(0)
-                        .build(ctx),
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -210,13 +210,13 @@ impl Template for ItemsView {
 widget!(LayoutView {});
 
 impl Template for LayoutView {
-    fn template(self, _id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
         self.child(
             Stack::new()
                 .width(400)
                 .margin(16)
                 .spacing(8)
-                .child(TextBlock::new().text("Grid").style("header").build(ctx))
+                .child(TextBlock::new().text("Grid").style("header"), btx)
                 .child(
                     Container::new()
                         .width(300)
@@ -237,9 +237,9 @@ impl Template for LayoutView {
                                                 .style("light_text")
                                                 .h_align("center")
                                                 .v_align("center")
-                                                .build(ctx),
+                                                , btx
                                         )
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Container::new()
@@ -253,9 +253,9 @@ impl Template for LayoutView {
                                                 .style("body")
                                                 .h_align("center")
                                                 .v_align("center")
-                                                .build(ctx),
+                                                , btx
                                         )
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Container::new()
@@ -267,9 +267,9 @@ impl Template for LayoutView {
                                                 .foreground("black")
                                                 .h_align("center")
                                                 .v_align("center")
-                                                .build(ctx),
+                                                , btx
                                         )
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Container::new()
@@ -283,15 +283,15 @@ impl Template for LayoutView {
                                                 .foreground("black")
                                                 .h_align("center")
                                                 .v_align("center")
-                                                .build(ctx),
+                                                , btx
                                         )
-                                        .build(ctx),
+                                        , btx
                                 )
-                                .build(ctx),
+                                , btx
                         )
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().text("Stack").style("header").build(ctx))
+                .child(TextBlock::new().text("Stack").style("header"), btx)
                 .child(
                     Container::new()
                         .background("black")
@@ -299,40 +299,40 @@ impl Template for LayoutView {
                         .child(
                             Stack::new()
                                 .spacing(4)
-                                .child(Container::new().background("lynch").height(50).build(ctx))
+                                .child(Container::new().background("lynch").height(50), btx)
                                 .child(
                                     Container::new()
                                         .background("bluebayoux")
                                         .height(50)
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Container::new()
                                         .background("linkwater")
                                         .height(50)
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Container::new()
                                         .background("goldendream")
                                         .height(50)
-                                        .build(ctx),
+                                        , btx
                                 )
-                                .build(ctx),
+                                , btx
                         )
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().text("Padding").style("header").build(ctx))
+                .child(TextBlock::new().text("Padding").style("header"), btx)
                 .child(
                     Container::new()
                         .background("black")
                         .width(300)
                         .height(150)
                         .padding((16, 8, 16, 8))
-                        .child(Container::new().background("lynch").build(ctx))
-                        .build(ctx),
+                        .child(Container::new().background("lynch"), btx)
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -341,12 +341,12 @@ impl Template for LayoutView {
 widget!(ImageView {});
 
 impl Template for ImageView {
-    fn template(self, _id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
         self.child(
             ImageWidget::new()
                 .margin(16)
                 .image("orbtk/assets/showcase/orbtk_logo.png")
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -355,7 +355,7 @@ impl Template for ImageView {
 widget!(LocalizationView<LocalizationState> { languages: List, selected_index: i32 });
 
 impl Template for LocalizationView {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         let languages = vec!["English".to_string(), "German".to_string()];
         let count = languages.len();
 
@@ -368,23 +368,23 @@ impl Template for LocalizationView {
                     TextBlock::new()
                         .style("small_text")
                         .text("Hello")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     TextBlock::new()
                         .style("small_text")
                         .text("world")
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().style("small_text").text("I").build(ctx))
-                .child(TextBlock::new().style("small_text").text("love").build(ctx))
+                .child(TextBlock::new().style("small_text").text("I"), btx)
+                .child(TextBlock::new().style("small_text").text("love"), btx)
                 .child(
                     TextBlock::new()
                         .style("small_text")
                         .text("localization")
-                        .build(ctx),
+                        , btx
                 )
-                .child(TextBlock::new().style("small_text").text("!").build(ctx))
+                .child(TextBlock::new().style("small_text").text("!"), btx)
                 .child(
                     ComboBox::new()
                         .count(count)
@@ -397,9 +397,9 @@ impl Template for LocalizationView {
                             states.get_mut::<LocalizationState>(id).change_language();
                         })
                         .selected_index(id)
-                        .build(ctx),
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -412,15 +412,15 @@ widget!(
 );
 
 impl Template for NavigationView {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         let pager = Pager::new()
             .attach(Grid::row(1))
             .child(
                 Container::new()
                     .padding(8)
                     .background("lynch")
-                    .child(TextBlock::new().text("Page 1").build(ctx))
-                    .build(ctx),
+                    .child(TextBlock::new().text("Page 1"), btx)
+                    , btx
             )
             .child(
                 Container::new()
@@ -430,9 +430,9 @@ impl Template for NavigationView {
                         TextBlock::new()
                             .foreground("black")
                             .text("Page 2")
-                            .build(ctx),
+                            , btx
                     )
-                    .build(ctx),
+                    , btx
             )
             .child(
                 Container::new()
@@ -442,18 +442,18 @@ impl Template for NavigationView {
                         TextBlock::new()
                             .foreground("black")
                             .text("Page 3")
-                            .build(ctx),
+                            , btx
                     )
-                    .build(ctx),
+                    , btx
             )
-            .build(ctx);
+           .build(btx);
 
         self.child(
             Grid::new()
                 .margin(16)
                 .rows("32, *, 8, auto, 8, 32, *")
-                .child(TextBlock::new().text("Pager").style("header").build(ctx))
-                .child(pager)
+                .child(TextBlock::new().text("Pager").style("header"), btx)
+                .child_entity(pager)
                 .child(
                     Button::new()
                         .style("button_single_content")
@@ -464,7 +464,7 @@ impl Template for NavigationView {
                             states.send_message(PagerAction::Previous, pager);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     Button::new()
@@ -476,14 +476,14 @@ impl Template for NavigationView {
                             states.send_message(PagerAction::Next, pager);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     TextBlock::new()
                         .text("MasterDetail")
                         .attach(Grid::row(5))
                         .style("header")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     MasterDetail::new()
@@ -503,12 +503,12 @@ impl Template for NavigationView {
                                         .v_align("center")
                                         .child(TextBlock::new().text("Content inside the master pane")
                                                .font_size(16)
-                                               .build(ctx))
+                                               , btx)
                                         .child(TextBlock::new().text("Resize the window: Pane brake is set to 800 pixel")
                                                .font_size(14)
-                                               .build(ctx))
-                                        .build(ctx))
-                                .child(TextBlock::new().text("Master Pane").v_align("end").build(ctx))
+                                               , btx)
+                                        , btx)
+                                .child(TextBlock::new().text("Master Pane").v_align("end"), btx)
                                 .child(
                                     Button::new()
                                         .style("button_primary_single_content")
@@ -519,9 +519,9 @@ impl Template for NavigationView {
                                             ctx.send_message(MasterDetailAction::ShowDetail, id);
                                             true
                                         })
-                                        .build(ctx),
+                                        , btx
                                 )
-                                .build(ctx),
+                                , btx
                             Container::new()
                                 .padding(8)
                                 .background("goldendream")
@@ -530,14 +530,14 @@ impl Template for NavigationView {
                                        .v_align("center")
                                        .foreground("black")
                                        .font_size(14)
-                                       .build(ctx))
+                                       , btx)
                                 .child(
                                     TextBlock::new()
                                         .text("Detail Pane")
                                         .v_align("end")
                                         .foreground("black")
                                         .margin(8)
-                                        .build(ctx),
+                                        , btx
                                 )
                                 .child(
                                     Button::new()
@@ -549,13 +549,13 @@ impl Template for NavigationView {
                                             ctx.send_message(MasterDetailAction::ShowMaster, id);
                                             true
                                         })
-                                        .build(ctx),
+                                        , btx
                                 )
-                                .build(ctx),
+                                , btx
                         )
-                        .build(ctx),
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }
@@ -571,7 +571,7 @@ widget!(
 );
 
 impl Template for InteractiveView {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         let themes = vec![
             "default_dark".to_string(),
             "default_light".to_string(),
@@ -594,7 +594,7 @@ impl Template for InteractiveView {
                         .attach(Grid::column(0))
                         .style("small_text")
                         .text("Select theme")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     ComboBox::new()
@@ -610,7 +610,7 @@ impl Template for InteractiveView {
                             ctx.send_message(InteractiveAction::ChangeTheme, id);
                         })
                         .selected_index(id)
-                        .build(ctx),
+                        , btx
                 )
                 // Settings
                 .child(
@@ -621,7 +621,7 @@ impl Template for InteractiveView {
                         .attach(Grid::column_span(5))
                         .text("Settings")
                         .style("header")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     TextBox::new()
@@ -629,7 +629,7 @@ impl Template for InteractiveView {
                         .attach(Grid::row(6))
                         .attach(Grid::column(0))
                         .water_mark("Insert text...")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     Button::new()
@@ -641,7 +641,7 @@ impl Template for InteractiveView {
                             ctx.send_message(InteractiveAction::LoadSettings, id);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     Button::new()
@@ -653,7 +653,7 @@ impl Template for InteractiveView {
                             ctx.send_message(InteractiveAction::SaveSettings, id);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
                 // Counter
                 .child(
@@ -664,7 +664,7 @@ impl Template for InteractiveView {
                         .attach(Grid::column_span(5))
                         .text("Counter")
                         .style("header")
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     Button::new()
@@ -676,7 +676,7 @@ impl Template for InteractiveView {
                             ctx.send_message(InteractiveAction::Increment, id);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     TextBlock::new()
@@ -686,7 +686,7 @@ impl Template for InteractiveView {
                         .attach(Grid::row(12))
                         .attach(Grid::column(0))
                         .text(("count_text", id))
-                        .build(ctx),
+                        , btx
                 )
                 .child(
                     Button::new()
@@ -698,9 +698,9 @@ impl Template for InteractiveView {
                             ctx.send_message(InteractiveAction::Decrement, id);
                             true
                         })
-                        .build(ctx),
+                        , btx
                 )
-                .build(ctx),
+                , btx
         )
     }
 }

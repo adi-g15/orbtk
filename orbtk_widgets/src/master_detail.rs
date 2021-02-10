@@ -201,8 +201,8 @@ widget!(
     /// MasterDetail::new()
     ///     .responsive(true)
     ///     .break_point(300)
-    ///     .master_detail(TextBlock::new().text("Master").build(ctx), TextBlock::new().text("Detail").build(ctx))
-    ///     .build(ctx);
+    ///     .master_detail(TextBlock::new().text("Master"), btx TextBlock::new().text("Detail"), btx)
+    ///     , btx;
     /// ```
     MasterDetail<MasterDetailState> {
         /// Toggle column layout on behave of the value of `break_point`.
@@ -244,9 +244,9 @@ impl MasterDetail {
 }
 
 impl Template for MasterDetail {
-    fn template(self, _: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, _: Entity, btx: &mut BuildContext) -> Self {
         self.name("MasterDetails")
             .master_width(374)
-            .child(Grid::new().id(CONTENT_GRID).build(ctx))
+            .child(Grid::new().id(CONTENT_GRID), btx)
     }
 }

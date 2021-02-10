@@ -61,7 +61,7 @@ widget!(
 );
 
 impl Template for Button {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("Button")
             .style("button")
             .height(36.0)
@@ -109,7 +109,7 @@ impl Template for Button {
                                             .icon_size(id)
                                             .icon_font(id)
                                             .opacity(id)
-                                            .build(ctx),
+                                            , btx
                                     )
                                     .child(
                                         TextBlock::new()
@@ -119,13 +119,13 @@ impl Template for Button {
                                             .font_size(id)
                                             .font(id)
                                             .opacity(id)
-                                            .build(ctx),
+                                            , btx
                                     )
-                                    .build(ctx),
+                                    , btx
                             )
-                            .build(ctx),
+                            , btx
                     )
-                    .build(ctx),
+                    , btx
             )
     }
 }

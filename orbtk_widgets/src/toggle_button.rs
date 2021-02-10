@@ -62,7 +62,7 @@ widget!(
 );
 
 impl Template for ToggleButton {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("ToggleButton")
             .style("button")
             .selected(false)
@@ -112,8 +112,8 @@ impl Template for ToggleButton {
                                                     .icon(id)
                                                     .icon_brush(id)
                                                     .icon_size(id)
-                                                    .icon_font(id)
-                                                    .build(ctx),
+                                                    .icon_font(id),
+                                                btx,
                                             )
                                             .child(
                                                 TextBlock::new()
@@ -121,16 +121,16 @@ impl Template for ToggleButton {
                                                     .foreground(id)
                                                     .text(id)
                                                     .font_size(id)
-                                                    .font(id)
-                                                    .build(ctx),
-                                            )
-                                            .build(ctx),
-                                    )
-                                    .build(ctx),
-                            )
-                            .build(ctx),
-                    )
-                    .build(ctx),
+                                                    .font(id),
+                                                btx,
+                                            ),
+                                        btx,
+                                    ),
+                                btx,
+                            ),
+                        btx,
+                    ),
+                btx,
             )
     }
 }

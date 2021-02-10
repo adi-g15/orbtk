@@ -42,8 +42,8 @@ To start your first OrbTk project you can use [cargo](https://doc.rust-lang.org/
                     .title("My first OrbTk app")
                     .position((100.0, 100.0))
                     .size(420.0, 730.0)
-                    .child(TextBlock::create().text("Hello World").margin(4.0).build(ctx))
-                    .build(ctx)
+                    .child(TextBlock::create().text("Hello World").margin(4.0), btx)
+                    , btx
             })
             .run();
     }
