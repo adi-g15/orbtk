@@ -4,7 +4,7 @@ use dces::prelude::*;
 
 use crate::{events::*, layout::*, render_object::RenderObject, theming::Theme, tree::Tree};
 
-use super::State;
+use super::{State, WidgetContainer};
 
 pub type WidgetBuildContext = Option<Box<dyn Fn(&mut BuildContext, usize) -> Entity + 'static>>;
 

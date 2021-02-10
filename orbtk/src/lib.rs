@@ -37,6 +37,16 @@ pub mod widgets {
     pub use orbtk_widgets::*;
 }
 
+pub mod proc_macros {
+    //! Procedural macros used by OrbTk.
+    pub use orbtk_proc_macros::*;
+}
+
+pub mod macros {
+    /// Helper macros.
+    pub use orbtk_base::macros::*;
+}
+
 pub use self::utils::*;
 
 #[cfg(not(feature = "im"))]

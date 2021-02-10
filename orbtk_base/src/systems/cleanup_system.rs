@@ -1,11 +1,15 @@
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Theme, tree::Tree};
+use crate::{theming::Theme, tree::Tree, widget_base::Context};
 
 /// Handles the inner cleanup while window is closing.
-#[derive(Constructor)]
-pub struct CleanupSystem {
-    context_provider: ContextProvider,
+pub struct CleanupSystem;
+
+impl CleanupSystem {
+    /// Creates a new cleanup system.
+    pub fn new() -> Self {
+        CleanupSystem
+    }
 }
 
 impl System<Tree> for CleanupSystem {
@@ -43,7 +47,7 @@ impl System<Tree> for CleanupSystem {
             let mut keys = vec![];
 
             if !skip {
-                let mut ctx = Context::new((widget, ecm), &theme, &self.context_provider);
+                let mut ctx = Context::new((widget, ecm), &theme);
 
                 if let Some(state) = self.context_provider.states.borrow_mut().get_mut(&widget) {
                     state.cleanup(&mut ctx, res);

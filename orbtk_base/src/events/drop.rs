@@ -1,4 +1,6 @@
-use crate::{events::*, utils::*};
+use orbtk_proc_macros::*;
+
+use crate::{events::*, utils::*, widget_base::Widget};
 
 /// This event occurs on a drop file event on the window.
 #[derive(Event, Clone)]

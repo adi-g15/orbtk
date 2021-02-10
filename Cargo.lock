@@ -76,6 +76,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae44d1a3d5a19df61dd0c8beb138458ac2a53a7ac09eba97d55592540004306b"
 
 [[package]]
+name = "case"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd6c0e7b807d60291f42f33f58480c0bfafe28ed08286446f45e463728cf9c1c"
+
+[[package]]
 name = "cc"
 version = "1.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -447,6 +453,7 @@ version = "0.4.0-alpha1-alpha4"
 dependencies = [
  "orbtk_base",
  "orbtk_orbclient",
+ "orbtk_proc_macros",
  "orbtk_shell",
  "orbtk_tinyskia",
  "orbtk_widgets",
@@ -458,6 +465,7 @@ version = "0.4.0-alpha1"
 dependencies = [
  "dces",
  "lexical-core",
+ "orbtk_proc_macros",
  "phf",
  "phf_codegen",
  "raw-window-handle",
@@ -473,6 +481,16 @@ dependencies = [
  "orbclient",
  "orbtk_base",
  "orbtk_shell",
+]
+
+[[package]]
+name = "orbtk_proc_macros"
+version = "0.4.0-alpha1"
+dependencies = [
+ "case",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

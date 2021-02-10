@@ -33,49 +33,48 @@ impl Window {
         for event in self.inner.events() {
             match event.to_option() {
                 orbclient::EventOption::Quit(_) => {
-                    // self.shell.quit();
+                    self.shell.quit();
                     return false;
                 }
                 orbclient::EventOption::Key(e) => {
-                    // self.shell.key(e.scancode, e.character, e.pressed)
+                    self.shell.key(e.scancode, e.character, e.pressed)
                 }
                 orbclient::EventOption::TextInput(e) => {
-                    // self.shell.text_input(e.character.to_string())
+                    self.shell.text_input(e.character.to_string())
                 }
-                // orbclient::EventOption::Mouse(e) => self.shell.mouse(e.x as f64, e.y as f64),
-                // orbclient::EventOption::MouseRelative(_) => println!("no yet implemented"),
+                orbclient::EventOption::Mouse(e) => self.shell.mouse(e.x as f64, e.y as f64),
+                orbclient::EventOption::MouseRelative(_) => println!("no yet implemented"),
                 orbclient::EventOption::Button(e) => {
-                    // self.shell.mouse_button(e.left, e.middle, e.right)
+                    self.shell.mouse_button(e.left, e.middle, e.right)
                 }
-                // orbclient::EventOption::Scroll(e) => self.shell.scroll(e.x as f64, e.y as f64),
-                // orbclient::EventOption::Focus(e) => self.shell.active(e.focused),
-                // orbclient::EventOption::Move(e) => self.shell.moved(e.x as f64, e.y as f64),
-                // orbclient::EventOption::Resize(e) => self.shell.resize(e.width, e.height),
-                // orbclient::EventOption::Screen(_) => println!("no yet implemented"),
-                // orbclient::EventOption::Clipboard(_) => println!("no yet implemented"),
-                // orbclient::EventOption::ClipboardUpdate(_) => println!("no yet implemented"),
-                // orbclient::EventOption::Drop(_) => println!("no yet implemented"),
-                // orbclient::EventOption::Hover(_) => println!("no yet implemented"),
-                // orbclient::EventOption::Unknown(_) => println!("no yet implemented"),
-                // orbclient::EventOption::None => println!("no yet implemented"),
-                _ => {}
+                orbclient::EventOption::Scroll(e) => self.shell.scroll(e.x as f64, e.y as f64),
+                orbclient::EventOption::Focus(e) => self.shell.active(e.focused),
+                orbclient::EventOption::Move(e) => self.shell.moved(e.x as f64, e.y as f64),
+                orbclient::EventOption::Resize(e) => self.shell.resize(e.width, e.height),
+                orbclient::EventOption::Screen(_) => println!("no yet implemented"),
+                orbclient::EventOption::Clipboard(_) => println!("no yet implemented"),
+                orbclient::EventOption::ClipboardUpdate(_) => println!("no yet implemented"),
+                orbclient::EventOption::Drop(_) => println!("no yet implemented"),
+                orbclient::EventOption::Hover(_) => println!("no yet implemented"),
+                orbclient::EventOption::Unknown(_) => println!("no yet implemented"),
+                orbclient::EventOption::None => println!("no yet implemented"),
             }
         }
 
         // todo move to correct code part.
-        // self.shell.update_and_draw();
+        self.shell.update_and_draw();
 
-        // let bytes = self.shell.frame_buffer_mut();
-        // let color_data = unsafe {
-        //     std::slice::from_raw_parts_mut(
-        //         bytes.as_mut_ptr() as *mut orbclient::Color,
-        //         bytes.len() / std::mem::size_of::<orbclient::Color>(),
-        //     )
-        // };
+        let bytes = self.shell.frame_buffer_mut();
+        let color_data = unsafe {
+            std::slice::from_raw_parts_mut(
+                bytes.as_mut_ptr() as *mut orbclient::Color,
+                bytes.len() / std::mem::size_of::<orbclient::Color>(),
+            )
+        };
 
-        // if color_data.len() == self.inner.data().len() {
-        //     self.inner.data_mut().clone_from_slice(color_data);
-        // }
+        if color_data.len() == self.inner.data().len() {
+            self.inner.data_mut().clone_from_slice(color_data);
+        }
 
         self.inner.sync();
 

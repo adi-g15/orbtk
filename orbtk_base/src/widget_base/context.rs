@@ -1,17 +1,12 @@
-use std::{collections::BTreeMap, sync::mpsc};
+use std::{any::Any, cell::RefCell, collections::BTreeMap, rc::Rc, sync::mpsc};
 
 use dces::prelude::*;
 
 use raw_window_handle::RawWindowHandle;
 
-use crate::{
-    // application::{create_window, ContextProvider},
-    // shell::{ShellRequest, WindowRequest},
-    theming::prelude::*,
-    tree::Tree,
-};
+use crate::{events::EventAdapter, theming::Theme, tree::Tree};
 
-use super::WidgetContainer;
+use super::*;
 
 /// The `Context` structure provides access to widget entities handled
 /// via the underlying EntityComponentSystem. Functions are offered to
@@ -22,7 +17,6 @@ pub struct Context<'a> {
     pub(crate) ecm: &'a mut EntityComponentManager<Tree>,
     entity: Entity,
     pub theme: Theme,
-    pub(crate) provider: &'a ContextProvider,
     new_states: Rc<RefCell<BTreeMap<Entity, Box<dyn State>>>>,
     remove_widget_list: Vec<Entity>,
 }
@@ -38,16 +32,11 @@ impl<'a> Drop for Context<'a> {
 
 impl<'a> Context<'a> {
     /// Creates a new container.
-    pub fn new(
-        ecs: (Entity, &'a mut EntityComponentManager<Tree>),
-        theme: &Theme,
-        provider: &'a ContextProvider,
-    ) -> Self {
+    pub fn new(ecs: (Entity, &'a mut EntityComponentManager<Tree>), theme: &Theme) -> Self {
         Context {
             entity: ecs.0,
             ecm: ecs.1,
             theme: theme.clone(),
-            provider,
             new_states: Rc::new(RefCell::new(BTreeMap::new())),
             remove_widget_list: vec![],
         }
@@ -415,21 +404,6 @@ impl<'a> Context<'a> {
         None
     }
 
-    /// Creates and show a new window.
-    pub fn show_window<F: Fn(&mut BuildContext) -> Entity + 'static>(&mut self, create_fn: F) {
-        let (adapter, settings, receiver) = create_window(
-            self.provider.application_name.clone(),
-            self.theme.clone(),
-            self.provider.shell_sender.clone(),
-            create_fn,
-            self.provider.localization.clone(),
-        );
-        self.provider
-            .shell_sender
-            .send(ShellRequest::CreateWindow(adapter, settings, receiver))
-            .expect("Context.show_window: Could not send shell request.");
-    }
-
     /// Returns a keys collection of new added states.
     pub fn new_states_keys(&self) -> Vec<Entity> {
         self.new_states.borrow().keys().cloned().collect()
@@ -482,40 +456,6 @@ impl<'a> Context<'a> {
     /// Sends a message to the given entity.
     pub fn send_message<M: Any + Send>(&self, message: M, entity: Entity) {
         self.provider.message_adapter.send_message(message, entity);
-    }
-
-    /// Gets a new sender that allows to communicate with the window shell.
-    pub fn send_window_request(&self, request: WindowRequest) {
-        self.provider
-            .window_sender
-            .send(request)
-            .expect("Context::send_window_request: could not send request to window.");
-    }
-
-    /// Pushes an event to the event queue.
-    #[deprecated = "Will be removed on 0.3.1-alpha5. Use EventAdapter instead"]
-    pub fn push_event<E: Event + Send>(&mut self, event: E) {
-        self.provider.event_adapter.push_event(self.entity, event);
-    }
-
-    /// Pushes an event to the event queue.
-    #[deprecated = "Will be removed on 0.3.1-alpha5. Use EventAdapter instead"]
-    pub fn push_event_by_entity<E: Event + Send>(&mut self, event: E, entity: Entity) {
-        self.provider.event_adapter.push_event(entity, event);
-    }
-
-    /// Pushes an event to the event queue.
-    #[deprecated = "Will be removed on 0.3.1-alpha5. Use EventAdapter instead"]
-    pub fn push_event_by_window<E: Event + Send>(&mut self, event: E) {
-        self.provider
-            .event_adapter
-            .push_event(self.entity_of_window(), event);
-    }
-
-    /// Gets a window request sender.
-    #[deprecated = "Will be removed on 0.3.1-alpha5. Use send_window_request instead"]
-    pub fn window_sender(&self) -> mpsc::Sender<WindowRequest> {
-        self.provider.window_sender.clone()
     }
 }
 

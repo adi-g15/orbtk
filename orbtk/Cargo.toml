@@ -27,6 +27,7 @@ orbtk_orbclient = { version = "0.4.0-alpha1", path = "../orbtk_orbclient", optio
 orbtk_shell = { version = "0.4.0-alpha1", path = "../orbtk_shell" }
 orbtk_tinyskia = { version = "0.4.0-alpha1", path = "../orbtk_tinyskia" }
 orbtk_widgets = { version = "0.4.0-alpha1", path = "../orbtk_widgets" }
+orbtk_proc_macros = { version = "0.4.0-alpha1", path = "../orbtk_proc_macros" }
 
 [features]
 default = ["orbtk_orbclient"]

@@ -4,7 +4,9 @@ use dces::prelude::*;
 
 use super::*;
 
-use crate::{proc_macros::*, widget_base::*};
+use orbtk_proc_macros::*;
+
+use crate::widget_base::*;
 
 crate::trigger_event!(
     ActivateEvent,

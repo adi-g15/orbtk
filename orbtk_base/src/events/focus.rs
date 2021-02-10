@@ -1,9 +1,8 @@
 use dces::prelude::Entity;
 
-use crate::{
-    prelude::*,
-    proc_macros::{Event, IntoHandler},
-};
+use orbtk_proc_macros::*;
+
+use crate::{events::*, utils::*, widget_base::Widget};
 
 /// Used to request keyboard focus on the window.
 #[derive(Event, Clone)]

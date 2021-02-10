@@ -80,15 +80,15 @@ impl MessageBox {
 #[derive(Clone, Debug)]
 pub struct MessageAdapter {
     messages: Arc<Mutex<BTreeMap<Entity, HashMap<TypeId, Vec<MessageBox>>>>>,
-    window_sender: mpsc::Sender<WindowRequest>,
+    // window_sender: mpsc::Sender<WindowRequest>,
 }
 
 impl MessageAdapter {
     /// Creates a new message adapter
-    pub fn new(window_sender: mpsc::Sender<WindowRequest>) -> Self {
+    pub fn new(/*window_sender: mpsc::Sender<WindowRequest>*/) -> Self {
         MessageAdapter {
             messages: Arc::new(Mutex::new(BTreeMap::new())),
-            window_sender,
+            // window_sender,
         }
     }
 
@@ -128,9 +128,9 @@ impl MessageAdapter {
             .unwrap()
             .push(MessageBox::new(message, target));
 
-        self.window_sender
-            .send(WindowRequest::Redraw)
-            .expect("MessageAdapter::send_message: Cannot send redraw request.");
+        // self.window_sender
+        //     .send(WindowRequest::Redraw)
+        //     .expect("MessageAdapter::send_message: Cannot send redraw request.");
     }
 
     /// Returns a list of entities that has messages.

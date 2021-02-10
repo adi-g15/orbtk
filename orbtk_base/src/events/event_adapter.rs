@@ -1,8 +1,8 @@
 use std::sync::{mpsc, Arc, Mutex};
 
-use dces::entity::Entity;
+use orbtk_proc_macros::*;
 
-use crate::{event::*, shell::WindowRequest};
+use crate::{events::*, utils::*, widget_base::Widget};
 
 /// The `EventAdapter` provides a thread safe way to push events to the widget tree of a window.
 ///
@@ -27,15 +27,15 @@ use crate::{event::*, shell::WindowRequest};
 #[derive(Clone, Default, Debug)]
 pub struct EventAdapter {
     event_queue: Arc<Mutex<EventQueue>>,
-    window_sender: Option<mpsc::Sender<WindowRequest>>,
+    // window_sender: Option<mpsc::Sender<WindowRequest>>,
 }
 
 impl EventAdapter {
     /// Creates a new event adapter.
-    pub fn new(window_sender: mpsc::Sender<WindowRequest>) -> Self {
+    pub fn new(/*window_sender: mpsc::Sender<WindowRequest>*/) -> Self {
         EventAdapter {
             event_queue: Arc::new(Mutex::new(EventQueue::new())),
-            window_sender: Some(window_sender),
+            // window_sender: Some(window_sender),
         }
     }
 
@@ -59,11 +59,11 @@ impl EventAdapter {
         self.redraw();
     }
 
-    fn redraw(&self) {
-        if let Some(window_sender) = &self.window_sender {
-            window_sender.send(WindowRequest::Redraw).unwrap();
-        }
-    }
+    // fn redraw(&self) {
+    //     if let Some(window_sender) = &self.window_sender {
+    //         window_sender.send(WindowRequest::Redraw).unwrap();
+    //     }
+    // }
 
     /// Returns the number of events in the queue.
     pub fn len(&self) -> usize {

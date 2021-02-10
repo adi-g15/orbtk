@@ -1,15 +1,21 @@
-use std::cell::RefCell;
+use std::cell::{Ref, RefCell};
 
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Theme, tree::Tree, utils::*};
+use crate::{events::*, theming::Theme, tree::Tree, utils::*, widget_base::*};
 
 /// The `EventStateSystem` pops events from the event queue and delegates the events to the corresponding event handlers of the widgets and updates the states.
-#[derive(Constructor)]
 pub struct EventStateSystem {
-    context_provider: ContextProvider,
-
     hovered_widgets: RefCell<Vec<Entity>>,
+}
+
+impl EventStateSystem {
+    /// Creates a new event state system.
+    pub fn new() -> Self {
+        EventStateSystem {
+            hovered_widgets: RefCell::new(vec![]),
+        }
+    }
 }
 
 impl EventStateSystem {
@@ -82,7 +88,7 @@ impl EventStateSystem {
         res: &mut Resources,
     ) {
         {
-            let mut ctx = Context::new((entity, ecm), &theme, &self.context_provider);
+            let mut ctx = Context::new((entity, ecm), &theme);
 
             if let Some(state) = self.context_provider.states.borrow_mut().get_mut(&entity) {
                 state.cleanup(&mut ctx, res);
@@ -503,7 +509,7 @@ impl System<Tree> for EventStateSystem {
                 }
 
                 for entity in self.context_provider.message_adapter.entities() {
-                    let mut ctx = Context::new((entity, ecm), &theme, &self.context_provider);
+                    let mut ctx = Context::new((entity, ecm), &theme);
 
                     if let Some(state) = self.context_provider.states.borrow_mut().get_mut(&entity)
                     {
@@ -548,7 +554,7 @@ impl System<Tree> for EventStateSystem {
 
                 if !skip {
                     {
-                        let mut ctx = Context::new((widget, ecm), &theme, &self.context_provider);
+                        let mut ctx = Context::new((widget, ecm), &theme);
 
                         if let Some(state) =
                             self.context_provider.states.borrow_mut().get_mut(&widget)
@@ -562,7 +568,7 @@ impl System<Tree> for EventStateSystem {
                         drop(ctx);
 
                         for key in keys {
-                            let mut ctx = Context::new((key, ecm), &theme, &self.context_provider);
+                            let mut ctx = Context::new((key, ecm), &theme);
                             if let Some(state) =
                                 self.context_provider.states.borrow_mut().get_mut(&key)
                             {
