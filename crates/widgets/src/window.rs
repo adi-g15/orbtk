@@ -2,7 +2,7 @@ use std::{collections::VecDeque, rc::Rc};
 
 use crate::{
     api::prelude::*, proc_macros::*, render::RenderContext2D, shell::prelude::WindowRequest,
-    theme_default::prelude::*,
+    themes::default::*,
 };
 
 // --- KEYS --

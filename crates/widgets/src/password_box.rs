@@ -1,6 +1,6 @@
 use super::behaviors::{TextAction, TextBehavior, TextResult};
 use crate::prelude::*;
-use crate::{api::prelude::*, proc_macros::*, theme_default::prelude::*};
+use crate::{api::prelude::*, proc_macros::*, themes::default::*};
 
 #[derive(Default, AsAny)]
 struct PasswordBoxState {

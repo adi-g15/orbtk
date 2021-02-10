@@ -1,6 +1,6 @@
 use orbtk::{
     prelude::*,
-    theme_default::{THEME_DEFAULT, THEME_DEFAULT_COLORS_DARK, THEME_DEFAULT_FONTS},
+    themes::default::{THEME_DEFAULT, THEME_DEFAULT_COLORS_DARK, THEME_DEFAULT_FONTS},
     theming::config::ThemeConfig,
 };
 

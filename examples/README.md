@@ -1,32 +1,24 @@
 # OrbTk examples
 
-[![Build and test](https://github.com/redox-os/orbtk/workflows/CI/badge.svg)](https://github.com/redox-os/orbtk/actions)
-![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
+The examples should give you an inside of OrbTk. What it provides, how it looks like and how you can work with it. The intention is also to
+help you learning OrbTk. Therefore all examples are documented with explanations how the examples are build. The examples are numbered in ascending 
+from beginner to pro. Expect of the 0 examples it's an complete overview of all OrbTk widget.
 
-* showcase: an overview of all widgets provided by OrbTk
-* calculator: calculator example
+## 0_gallery
 
-    ![calculator](https://gitlab.redox-os.org/redox-os/assets/-/raw/master/screenshots/Calculator.png)
+Complete gallery of all widgets that OrbTk provides. It's more an overview and catalog of features and widgets of OrbTk. If you want to learn
+OrbTk you can start the 1_hello_world example.
 
-* canvas: use third party render library in canvas
+## 1_hello_world
 
-    ![canvas](https://gitlab.redox-os.org/redox-os/assets/-/raw/master/screenshots/orbtk_examples/canvas_example.jpg)
+Just an simple hello world example as startup. You can see a window, with a title and a label with "Hello World".
 
-* login: PasswordBox showcase with a login form
-* message: send a message from an other thread
-* minimal: minimal example
-* multi_window: multi window example
+## 2_counter
 
-    ![multi_window](https://gitlab.redox-os.org/redox-os/assets/-/raw/master/screenshots/orbtk_examples/multi_window.jpg)
+It's a little bit complexer then the first example. You have a window with two buttons and one label in the middle. If you click to the upper
+button the value displayed by the label is incremented and if you click to the lower label the value is decremented. The example should show you
+how to organize your widgets in a layout and how base interaction in OrbTk work.
 
-* overlay: draw widgets on the top
+## 3_calculator
 
-    ![overlay](https://gitlab.redox-os.org/redox-os/assets/-/raw/master/screenshots/orbtk_examples/overlay_example.jpg)
-
-* popup: show how to open and use a popup
-
-* stack: stack layout example
-
-## License
-
-Licensed under MIT license ([LICENSE](../LICENSE)).
+This examples shows how to build a calculator with OrbTk with a Grid layout widget, complexer interaction management and widget organization.

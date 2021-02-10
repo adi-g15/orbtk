@@ -135,7 +135,7 @@ dependencies = [
 [[package]]
 name = "dces"
 version = "0.4.0"
-source = "git+https://gitlab.redox-os.org/redox-os/dces-rust.git?branch=develop#f7637591a7eca2138427db0e837053d0d58b75a2"
+source = "git+https://gitlab.redox-os.org/redox-os/dces-rust.git?branch=develop#7a3859b10092301410b28f8e70f5233b0ea568ef"
 dependencies = [
  "fxhash",
 ]
@@ -340,9 +340,9 @@ dependencies = [
 
 [[package]]
 name = "libc"
-version = "0.2.85"
+version = "0.2.86"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ccac4b00700875e6a07c6cde370d44d32fa01c5a65cdd2fca6858c479d28bb3"
+checksum = "b7282d924be3275cec7f6756ff4121987bc6481325397dde6ba3e7802b1a8b1c"
 
 [[package]]
 name = "log"
@@ -469,11 +469,7 @@ dependencies = [
  "orbtk_proc_macros",
  "orbtk_render",
  "orbtk_shell",
- "orbtk_theme_default",
- "orbtk_theme_fluent",
- "orbtk_theme_redox",
  "orbtk_theming",
- "orbtk_tree",
  "orbtk_utils",
  "orbtk_widgets",
  "serde",
@@ -493,9 +489,7 @@ dependencies = [
  "orbtk_proc_macros",
  "orbtk_render",
  "orbtk_shell",
- "orbtk_theme_default",
  "orbtk_theming",
- "orbtk_tree",
  "orbtk_utils",
  "raw-window-handle",
  "ron",
@@ -550,45 +544,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "orbtk_theme_default"
-version = "0.3.1-alpha4"
-dependencies = [
- "lazy_static",
- "orbtk_theming",
-]
-
-[[package]]
-name = "orbtk_theme_fluent"
-version = "0.3.1-alpha4"
-dependencies = [
- "lazy_static",
- "orbtk_theme_default",
- "orbtk_theming",
-]
-
-[[package]]
-name = "orbtk_theme_redox"
-version = "0.3.1-alpha4"
-dependencies = [
- "lazy_static",
- "orbtk_theme_default",
- "orbtk_theming",
-]
-
-[[package]]
 name = "orbtk_theming"
 version = "0.3.1-alpha4"
 dependencies = [
  "ron",
  "serde",
  "serde_derive",
-]
-
-[[package]]
-name = "orbtk_tree"
-version = "0.3.1-alpha4"
-dependencies = [
- "dces",
 ]
 
 [[package]]
@@ -613,7 +574,7 @@ dependencies = [
  "orbtk_proc_macros",
  "orbtk_render",
  "orbtk_shell",
- "orbtk_theme_default",
+ "orbtk_theming",
  "orbtk_utils",
  "rust_decimal",
 ]

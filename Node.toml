@@ -5,13 +5,13 @@ height = 730
 assets = "assets/showcase"
     [[apps.fonts]]
     font_family = "MaterialIcons-Regular"
-    src = "crates/theme_default/assets/fonts/MaterialIcons.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/MaterialIcons.ttf"
     [[apps.fonts]]
     font_family = "Roboto-Regular"
-    src = "crates/theme_default/assets/fonts/Roboto-Regular.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/Roboto-Regular.ttf"
     [[apps.fonts]]
     font_family = "Roboto-Medium"
-    src = "crates/theme_default/assets/fonts/Roboto-Medium.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/Roboto-Medium.ttf"
 
 [[apps]]
 name = "calculator"
@@ -24,10 +24,10 @@ width = 468
 height = 730
     [[apps.fonts]]
     font_family = "MaterialIcons-Regular"
-    src = "crates/theme_default/assets/fonts/MaterialIcons.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/MaterialIcons.ttf"
     [[apps.fonts]]
     font_family = "Roboto-Regular"
-    src = "crates/theme_default/assets/fonts/Roboto-Regular.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/Roboto-Regular.ttf"
     [[apps.fonts]]
     font_family = "Roboto-Medium"
-    src = "crates/theme_default/assets/fonts/Roboto-Medium.ttf"
+    src = "crates/widgets/themes/default/assets/fonts/Roboto-Medium.ttf"

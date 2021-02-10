@@ -27,22 +27,12 @@ pub mod theming {
     pub use orbtk_theming::*;
 }
 
-pub mod theme_default {
-    pub use orbtk_theme_default::*;
+pub mod themes {
+    pub use orbtk_widgets::themes::*;
 }
-
-#[cfg(feature = "fluent")]
-pub mod theme_fluent {
-    pub use orbtk_theme_fluent::*;
-}
-
-#[cfg(feature = "redox")]
-pub mod theme_redox {
-    pub use orbtk_theme_redox::*;
-}
-
 pub mod tree {
-    pub use orbtk_tree::*;
+    //! This module provides a index (entity) based tree structure compatible to the [DCES](https://gitlab.redox-os.org/redox-os/dces-rust).
+    pub use orbtk_api::tree::*;
 }
 
 pub mod utils {

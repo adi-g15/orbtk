@@ -11,22 +11,23 @@ use orbtk_theming::{config::ThemeConfig, prelude::*};
 pub mod colors;
 /// provides `constants` associated to fonts.
 pub mod fonts;
-pub mod prelude;
+
 /// provides information processed by the `graphic render` (e.g. glyphs, icons).
 pub mod vector_graphics;
 
+pub use self::vector_graphics::*;
+
 /// Resource file of default theme
-pub const THEME_DEFAULT: &str = include_str!("../theme/theme_default.ron");
+pub const THEME_DEFAULT: &str = include_str!("theme/theme_default.ron");
 
 /// The default dark theme colors resource file.
-pub const THEME_DEFAULT_COLORS_DARK: &str = include_str!("../theme/theme_default_colors_dark.ron");
+pub const THEME_DEFAULT_COLORS_DARK: &str = include_str!("theme/theme_default_colors_dark.ron");
 
 /// The default light theme colors resource file.
-pub const THEME_DEFAULT_COLORS_LIGHT: &str =
-    include_str!("../theme/theme_default_colors_light.ron");
+pub const THEME_DEFAULT_COLORS_LIGHT: &str = include_str!("theme/theme_default_colors_light.ron");
 
 /// The font resources of the default theme
-pub const THEME_DEFAULT_FONTS: &str = include_str!("../theme/theme_default_fonts.ron");
+pub const THEME_DEFAULT_FONTS: &str = include_str!("theme/theme_default_fonts.ron");
 
 /// Segeo Icon Font map.
 pub const MATERIAL_ICONS: &str = include_str!("vector_graphics/material_icons_font.ron");
@@ -57,16 +58,9 @@ pub fn theme_default_light() -> Theme {
 }
 
 /// Register roboto and material icon fonts to the given theme.
-#[cfg(not(target_arch = "wasm32"))]
 pub fn register_default_fonts(theme: Theme) -> Theme {
     theme
-        .register_font("Roboto-Regular", crate::fonts::ROBOTO_REGULAR_FONT)
-        .register_font("Roboto-Medium", crate::fonts::ROBOTO_MEDIUM_FONT)
-        .register_font("MaterialIcons-Regular", crate::fonts::MATERIAL_ICONS_FONT)
-}
-
-/// Dummy implementation for web to be compatible to other platforms.
-#[cfg(target_arch = "wasm32")]
-pub fn register_default_fonts(theme: Theme) -> Theme {
-    theme
+        .register_font("Roboto-Regular", fonts::ROBOTO_REGULAR_FONT)
+        .register_font("Roboto-Medium", fonts::ROBOTO_MEDIUM_FONT)
+        .register_font("MaterialIcons-Regular", fonts::MATERIAL_ICONS_FONT)
 }

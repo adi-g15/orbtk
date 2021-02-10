@@ -13,20 +13,9 @@ pub use crate::{
     localization::prelude::*,
     proc_macros::*,
     render::prelude::*,
-    theme_default::{
-        colors, fonts, register_default_fonts, theme_default, theme_default_dark,
-        theme_default_light, vector_graphics::material_icons_font,
-    },
+    themes::{default::*, fluent::*, redox::*},
     theming::prelude::*,
-    tree::prelude::*,
+    tree::*,
     utils::prelude::*,
     widgets::prelude::*,
 };
-
-// optional uses
-
-#[cfg(feature = "fluent")]
-pub use crate::theme_fluent::prelude::*;
-
-#[cfg(feature = "redox")]
-pub use crate::theme_redox::prelude::*;

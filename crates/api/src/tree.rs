@@ -1,29 +1,8 @@
-/*!
-
-This crate provides a index (entity) based tree structure compatible to the [DCES](https://gitlab.redox-os.org/redox-os/dces-rust)
-Entity Component System. The tree could be used as entity storage.
-
-# Example
-
-Basic usage of the tree:
-
-```rust,no_run
-
-use orbtk_tree::prelude::*;
-
-let mut tree = Tree::new();
-tree.register_node(0);
-tree.register_node(1);
-tree.append_child(0, 1);
-```
-
- */
+//! This module provides a index (entity) based tree structure compatible to the [DCES](https://gitlab.redox-os.org/redox-os/dces-rust).
 
 use std::{cell::Cell, collections::BTreeMap};
 
 use dces::{entity::EntityStore, prelude::Entity};
-
-pub mod prelude;
 
 /// Used as return type if a requested entity is not found on the tree.
 #[derive(Debug, PartialEq, Eq)]
@@ -47,6 +26,19 @@ pub struct Tree {
 
 impl Tree {
     /// Creates a new tree with default values.
+    ///
+    /// # Examples
+    ///
+    ///```rust,no_run
+    ///
+    /// use orbtk_api::tree::Tree;
+    /// //use orbtk::tree::Tree;
+    ///
+    /// let mut tree = Tree::new();
+    /// tree.register_node(0);
+    /// tree.register_node(1);
+    /// tree.append_child(0, 1);
+    ///```
     pub fn new() -> Self {
         Tree::default()
     }

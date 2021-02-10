@@ -1,4 +1,4 @@
-use crate::{api::prelude::*, proc_macros::*, theme_default::prelude::*};
+use crate::{api::prelude::*, proc_macros::*, themes::default::*};
 
 enum TextAction {
     Localize,

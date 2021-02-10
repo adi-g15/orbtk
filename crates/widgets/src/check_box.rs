@@ -1,5 +1,5 @@
 use super::behaviors::{MouseBehavior, SelectionBehavior};
-use crate::{api::prelude::*, prelude::*, proc_macros::*, theme_default::prelude::*};
+use crate::{api::prelude::*, prelude::*, proc_macros::*, themes::default::*};
 
 widget!(
     /// The `CheckBox` widget can be switch its selected state. It contains a selection box and a text.

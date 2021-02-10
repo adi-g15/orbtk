@@ -63,7 +63,7 @@ impl Application {
             request_sender: sender,
             name: name.into(),
             shell: Shell::new(receiver),
-            theme: crate::theme_default::theme_default(),
+            theme: Theme::default(),
             localization: None,
         }
     }

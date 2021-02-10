@@ -3,7 +3,7 @@ use crate::{
     proc_macros::*,
     render::{RenderContext2D, TextMetrics},
     shell::prelude::{Key, KeyEvent},
-    theme_default::fonts,
+    themes::default::fonts,
     Cursor, TextBlock,
 };
 
