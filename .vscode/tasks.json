@@ -9,7 +9,7 @@
       "type": "shell",
       "args": [
         "build",
-        "--examples=minimal",
+        "--examples=0_gallery",
         "--features",
         "log"
       ],
