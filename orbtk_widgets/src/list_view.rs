@@ -246,7 +246,7 @@ widget!(
 );
 
 impl Template for ListViewItem {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         self.name("ListViewItem")
             .style("list_view_item")
             .min_width(64.0)
@@ -266,8 +266,11 @@ impl Template for ListViewItem {
                 false
             })
             .child(
-                MouseBehavior::new().pressed(id).enabled(id).target(id.0),
-                btx,
+                MouseBehavior::new()
+                    .pressed(id)
+                    .enabled(id)
+                    .target(id.0)
+                    .build(ctx),
             )
     }
 
@@ -332,17 +335,17 @@ impl ListView {
 }
 
 impl Template for ListView {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         let items_panel = Stack::new()
             .v_align("start")
             .id(ITEMS_PANEL)
             .orientation(id)
-            , btx;
+            .build(ctx);
 
         let scroll_viewer = ScrollViewer::new()
             .mode(("disabled", "auto"))
             .child(items_panel)
-            , btx;
+            .build(ctx);
 
         self.name("ListView")
             .style("list_view")
@@ -371,10 +374,10 @@ impl Template for ListView {
                             .view_port_bounds(("bounds", scroll_viewer))
                             .scroll_padding(("padding", scroll_viewer))
                             .mode(scroll_viewer)
-                            .opacity(id),
-                        btx,
-                    ),
-                btx,
+                            .opacity(id)
+                            .build(ctx),
+                    )
+                    .build(ctx),
             )
     }
 }

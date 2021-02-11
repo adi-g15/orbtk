@@ -170,7 +170,7 @@ impl<'a> BuildContext<'a> {
 }
 
 pub fn register_property<P: Component>(
-    btx: &mut BuildContext,
+    ctx: &mut BuildContext,
     key: &str,
     entity: Entity,
     property: P,

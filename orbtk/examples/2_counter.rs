@@ -4,7 +4,7 @@ widget!(Counter);
 
 impl Template for Counter {
     fn template(self, _id: Entity, btx: &mut BuildContext) -> Self {
-        self.child(TextBlock::new(), btx)
+        self.child(TextBlock::new().build(btx))
     }
 }
 

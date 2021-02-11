@@ -163,7 +163,7 @@ widget!(
     /// # Example
     ///
     /// ```rust
-    /// Slider::new().min(0).max(100).val(50), btx
+    /// Slider::new().min(0).max(100).val(50).build(ctx)
     /// ```
     Slider<SliderState>: MouseHandler {
         /// Sets or shares the min val of the range.
@@ -202,7 +202,7 @@ widget!(
 );
 
 impl Template for Slider {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         self.name("Slider")
             .style(STYLE_SLIDER)
             .min(0.0)
@@ -226,8 +226,8 @@ impl Template for Slider {
                                     .border_radius(id)
                                     .background(id)
                                     .border_brush(id)
-                                    .border_width(id),
-                                btx,
+                                    .border_width(id)
+                                    .build(ctx),
                             )
                             .child(
                                 // accent border
@@ -238,10 +238,10 @@ impl Template for Slider {
                                     .width(0)
                                     .opacity(id)
                                     .border_radius(id)
-                                    .background(("accent_brush", id)),
-                                btx,
-                            ),
-                        btx,
+                                    .background(("accent_brush", id))
+                                    .build(ctx),
+                            )
+                            .build(ctx),
                     )
                     .child(
                         Button::new()
@@ -252,10 +252,10 @@ impl Template for Slider {
                             .h_align("start")
                             .max_width(24.0)
                             .max_height(24.0)
-                            .border_radius(12.0),
-                        btx,
-                    ),
-                btx,
+                            .border_radius(12.0)
+                            .build(ctx),
+                    )
+                    .build(ctx),
             )
             .on_mouse_move(move |states, p| {
                 states

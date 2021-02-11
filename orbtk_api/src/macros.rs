@@ -428,22 +428,17 @@ macro_rules! widget {
                 self
             }
 
-            fn child(mut self, child: impl Widget, btx: &mut BuildContext) -> Self {
-                self.children.push(child.build(btx));
-                self
-            }
-
-            fn child_entity(mut self, child: Entity) -> Self {
+            fn child(mut self, child: Entity) -> Self {
                 self.children.push(child);
                 self
             }
 
-            fn build(self, btx: &mut BuildContext) -> Entity {
-                let entity = btx.create_entity();
+            fn build(self, ctx: &mut BuildContext) -> Entity {
+                let entity = ctx.create_entity();
 
-                let this = self.template(entity, btx);
+                let this = self.template(entity, ctx);
 
-                btx.register_render_object(entity, this.render_object());
+                ctx.register_render_object(entity, this.render_object());
                 ctx.register_layout(entity, this.layout());
 
                 $(
@@ -453,19 +448,19 @@ macro_rules! widget {
                 )*
 
                 // register default set of properties
-                register_property(btx, "bounds", entity, this.bounds);
-                btx.register_property("position", entity, this.position);
-                btx.register_property("v_align", entity, this.v_align);
-                btx.register_property("h_align", entity, this.h_align);
-                btx.register_property("on_changed_filter", entity, this.on_changed_filter);
-                btx.register_property("visibility", entity, this.visibility);
-                btx.register_property("margin", entity, this.margin);
-                btx.register_property("enabled", entity, this.enabled);
-                btx.register_property("clip", entity, this.clip);
-                btx.register_property("opacity", entity, this.opacity);
-                btx.register_property("type_id", entity, TypeId::of::<$widget>());
-                btx.register_property("type_name", entity, std::any::type_name::<$widget>().to_string());
-                btx.register_property("dirty", entity, false);
+                register_property(ctx, "bounds", entity, this.bounds);
+                ctx.register_property("position", entity, this.position);
+                ctx.register_property("v_align", entity, this.v_align);
+                ctx.register_property("h_align", entity, this.h_align);
+                ctx.register_property("on_changed_filter", entity, this.on_changed_filter);
+                ctx.register_property("visibility", entity, this.visibility);
+                ctx.register_property("margin", entity, this.margin);
+                ctx.register_property("enabled", entity, this.enabled);
+                ctx.register_property("clip", entity, this.clip);
+                ctx.register_property("opacity", entity, this.opacity);
+                ctx.register_property("type_id", entity, TypeId::of::<$widget>());
+                ctx.register_property("type_name", entity, std::any::type_name::<$widget>().to_string());
+                ctx.register_property("dirty", entity, false);
 
                 let mut constraint = this.constraint;
 
@@ -487,15 +482,15 @@ macro_rules! widget {
                 if let Some(max_height) = this.max_height {
                     constraint.set_max_height(max_height);
                 }
-                btx.register_property("constraint", entity, constraint);
+                ctx.register_property("constraint", entity, constraint);
 
                 // register attached properties
                 for (key, property) in this.attached_properties {
-                    btx.register_property_box(key.as_str(), entity, property);
+                    ctx.register_property_box(key.as_str(), entity, property);
                 }
 
                 for (key, property) in this.shared_attached_properties {
-                    btx.register_property_shared_box_by_source_key(key.0.as_str(), key.1.as_str(), entity, property);
+                    ctx.register_property_shared_box_by_source_key(key.0.as_str(), key.1.as_str(), entity, property);
                 }
 
                 // register properties
@@ -504,24 +499,24 @@ macro_rules! widget {
                         if let Some($property) = this.$property {
                             match $property {
                                 PropertySource::Value(value) => {
-                                    btx.register_property(stringify!($property), entity, value);
+                                    ctx.register_property(stringify!($property), entity, value);
                                 }
                                 PropertySource::Source(source) => {
-                                    btx.register_shared_property::<$property_type>(stringify!($property), entity, source);
+                                    ctx.register_shared_property::<$property_type>(stringify!($property), entity, source);
                                 }
                                 PropertySource::KeySource(source_key, source) => {
-                                    btx.register_shared_property_by_source_key::<$property_type>(stringify!($property), source_key.as_str(), entity, source);
+                                    ctx.register_shared_property_by_source_key::<$property_type>(stringify!($property), source_key.as_str(), entity, source);
                                 }
                             }
                         }
                         else {
-                            btx.register_property(stringify!($property), entity, $property_type::default());
+                            ctx.register_property(stringify!($property), entity, $property_type::default());
                         }
                     )*
                 )*
 
                 if let Some(id) = this.id {
-                    btx.register_property("id", entity, id);
+                    ctx.register_property("id", entity, id);
                 }
 
                 let mut selector = if let Some(style) = this.style {
@@ -531,28 +526,28 @@ macro_rules! widget {
                 };
 
                 // initial set disabled
-                if btx.get_widget(entity).has::<bool>("enabled") && !*btx.get_widget(entity).get::<bool>("enabled") {
+                if ctx.get_widget(entity).has::<bool>("enabled") && !*ctx.get_widget(entity).get::<bool>("enabled") {
                     selector.push_state("disabled");
                 }
 
-                btx.register_property("selector", entity, selector);
+                ctx.register_property("selector", entity, selector);
 
-                btx.update_theme_by_state(entity);
+                ctx.update_theme_by_state(entity);
 
                 // register event handlers
                 for handler in this.event_handlers {
-                    btx.register_handler(entity, handler);
+                    ctx.register_handler(entity, handler);
                 }
 
-                btx.register_handler(entity, this.changed_handler.into());
+                ctx.register_handler(entity, this.changed_handler.into());
 
                 // register name
                 if let Some(name) = this.name {
-                    btx.register_property("name", entity, name);
+                    ctx.register_property("name", entity, name);
                 }
 
                 for child in this.children {
-                    btx.append_child(entity, child);
+                    ctx.append_child(entity, child);
                 }
 
                 entity

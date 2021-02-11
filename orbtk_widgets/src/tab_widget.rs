@@ -139,7 +139,7 @@ impl TabHeader {
 }
 
 impl Template for TabHeader {
-    fn template(mut self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(mut self, id: Entity, ctx: &mut BuildContext) -> Self {
         let mut button = Button::new()
             .style("tab_icon_only")
             .icon(material_icons_font::MD_CLOSE)
@@ -176,35 +176,37 @@ impl Template for TabHeader {
             .icon_brush(colors::LINK_WATER_COLOR)
             .spacing(4)
             .close_button(Visibility::Visible)
-            .child(mouse_behavior, btx)
+            .child(mouse_behavior.build(ctx))
             .child(
-                Container::new().padding(id).child(
-                    Stack::new()
-                        .id(TAB_HEADER_CONTAINER)
-                        .spacing(id)
-                        .orientation("horizontal")
-                        .child(
-                            TextBlock::new()
-                                .text(id)
-                                .v_align("center")
-                                .h_align("start")
-                                .font(id)
-                                .font_size(id)
-                                .foreground(id),
-                            btx,
-                        )
-                        .child(button.v_align("center"), btx),
-                    btx,
-                ),
-                btx,
+                Container::new()
+                    .padding(id)
+                    .child(
+                        Stack::new()
+                            .id(TAB_HEADER_CONTAINER)
+                            .spacing(id)
+                            .orientation("horizontal")
+                            .child(
+                                TextBlock::new()
+                                    .text(id)
+                                    .v_align("center")
+                                    .h_align("start")
+                                    .font(id)
+                                    .font_size(id)
+                                    .foreground(id)
+                                    .build(ctx),
+                            )
+                            .child(button.v_align("center").build(ctx))
+                            .build(ctx),
+                    )
+                    .build(ctx),
             )
             .child(
                 Container::new()
                     .id(HEADER_BAR)
                     .v_align("start")
                     .visibility("collapsed")
-                    .style("tab_header_bar"),
-                btx,
+                    .style("tab_header_bar")
+                    .build(ctx),
             )
     }
 
@@ -493,10 +495,10 @@ widget!(
     This example creates a TabWidget:
     ```rust
     TabWidget::new()
-    .tab("Tab header 1",TextBlock::new().text("Tab content 1"), btx)
-    .tab("Tab header 2",TextBlock::new().text("Tab content 2"), btx)
-    .tab("Tab header 3",TextBlock::new().text("Tab content 3"), btx)
-    , btx
+    .tab("Tab header 1",TextBlock::new().text("Tab content 1").build(ctx))
+    .tab("Tab header 2",TextBlock::new().text("Tab content 2").build(ctx))
+    .tab("Tab header 3",TextBlock::new().text("Tab content 3").build(ctx))
+    .build(ctx)
      ```
      */
     TabWidget<TabWidgetState> {
@@ -521,29 +523,15 @@ widget!(
 );
 
 impl TabWidget {
-    /// Sets the close button visibility
+    ///Set the close button visibility
     pub fn close_button(mut self, value: bool) -> Self {
         self.state
             .actions
             .push(TabWidgetAction::SetCloseButtonVisibility(value));
         self
     }
-
-    /// Appends a tab widget.
-    pub fn tab<T: Into<String>>(
-        mut self,
-        header: T,
-        body: impl Widget,
-        btx: &mut BuildContext,
-    ) -> Self {
-        self.state
-            .actions
-            .push(TabWidgetAction::Add(header.into(), body.build(btx)));
-        self
-    }
-
-    /// Appends a tab widget as entity.
-    pub fn tab_entity<T: Into<String>>(mut self, header: T, body: Entity) -> Self {
+    ///Add a tab the widget
+    pub fn tab<T: Into<String>>(mut self, header: T, body: Entity) -> Self {
         self.state
             .actions
             .push(TabWidgetAction::Add(header.into(), body));
@@ -552,7 +540,7 @@ impl TabWidget {
 }
 
 impl Template for TabWidget {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         self.name("TabWidget").style("tab_widget").child(
             Grid::new()
                 .rows("34, *")
@@ -560,8 +548,8 @@ impl Template for TabWidget {
                     Stack::new()
                         .id(HEADER_CONTAINER)
                         .orientation("horizontal")
-                        .spacing(id),
-                    btx,
+                        .spacing(id)
+                        .build(ctx),
                 )
                 .child(
                     Container::new()
@@ -570,10 +558,10 @@ impl Template for TabWidget {
                         .border_brush(id)
                         .border_width(id)
                         .border_radius(id)
-                        .attach(Grid::row(1)),
-                    btx,
-                ),
-            btx,
+                        .attach(Grid::row(1))
+                        .build(ctx),
+                )
+                .build(ctx),
         )
     }
 }

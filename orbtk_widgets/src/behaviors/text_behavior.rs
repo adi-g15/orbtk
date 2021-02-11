@@ -785,21 +785,21 @@ widget!(
     /// });
     ///
     /// impl Template for MyInput {
-    ///     fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    ///     fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
     ///         // Cursor depends on a TextBlock
     ///         let text_block = TextBlock::new()
     ///             .text(id)
     ///             .water_mark(id)
     ///             .font(id)
     ///             .font_size(id)
-    ///             , btx;
+    ///             .build(ctx);
     ///
     ///         let cursor = Cursor::new()
     ///            // use .0 because Entity wraps an u32
     ///            .text_block(text_block.0)
     ///            .focused(id)
     ///            .selection(id)
-    ///            , btx;
+    ///            .build(ctx);
     ///
     ///        let text_behavior = TextBehavior::new()
     ///            .cursor(cursor.0)
@@ -811,7 +811,7 @@ widget!(
     ///            .request_focus(id)
     ///            .text(id)
     ///            .selection(id)
-    ///            , btx;
+    ///            .build(ctx);
     ///
     ///        self.child(cursor)
     ///            .child(text_behavior)

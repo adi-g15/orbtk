@@ -76,7 +76,7 @@ widget!(
     /// # Example
     ///
     /// ```rust
-    /// Switch::new().selected(true), btx
+    /// Switch::new().selected(true).build(ctx)
     /// ```
     Switch<SwitchState>: MouseHandler {
         /// Sets or shares the background property.
@@ -109,7 +109,7 @@ widget!(
 );
 
 impl Template for Switch {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         self.name("Switch")
             .style("switch")
             .pressed(false)
@@ -137,8 +137,8 @@ impl Template for Switch {
                             .border_brush(id)
                             .border_width(id)
                             .border_radius(id)
-                            .margin(("container_margin", id)),
-                        btx,
+                            .margin(("container_margin", id))
+                            .build(ctx),
                     )
                     .child(
                         Container::new()
@@ -149,10 +149,10 @@ impl Template for Switch {
                             .h_align("start")
                             .width(20.0)
                             .height(20.0)
-                            .border_radius(10.0),
-                        btx,
-                    ),
-                btx,
+                            .border_radius(10.0)
+                            .build(ctx),
+                    )
+                    .build(ctx),
             )
             .on_changed("selected", move |ctx, _| {
                 ctx.send_message(SwitchAction::SelectionChanged, id);

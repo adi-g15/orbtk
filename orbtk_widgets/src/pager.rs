@@ -79,9 +79,9 @@ widget!(
     ///
     /// ```rust
     /// let pager = Pager::new()
-    ///     .child(TextBlock::new().text("Page 1"), btx)
-    ///     .child(TextBlock::new().text("Page 2"), btx)
-    ///     , btx;
+    ///     .child(TextBlock::new().text("Page 1").build(ctx))
+    ///     .child(TextBlock::new().text("Page 2").build(ctx))
+    ///     .build(ctx);
     ///
     /// let next_button = Button::new()
     ///     .enabled(("next_enabled", pager))
@@ -90,7 +90,7 @@ widget!(
     ///         ctx.send_message(PagerAction::Next, pager);
     ///         true
     ///     })
-    ///     , btx;
+    ///     .build(ctx);
     ///
     /// let previous_button = Button::new()
     ///     .enabled(("previous_enabled", pager))
@@ -99,7 +99,7 @@ widget!(
     ///         ctx.send_message(PagerAction::Next, pager);
     ///         true
     ///     })
-    ///     , btx;
+    ///     .build(ctx);
     /// ```
     Pager<PagerState> {
         /// Defines the index of the current shown child.

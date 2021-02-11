@@ -85,8 +85,8 @@ fn main() {
                 .title("OrbTk - minimal example")
                 .position((100.0, 100.0))
                 .size(420.0, 730.0)
-                .child(TextBlock::new().text("OrbTk"), btx)
-                , btx
+                .child(TextBlock::new().text("OrbTk").build(ctx))
+                .build(ctx)
         })
         .run();
 }
@@ -120,7 +120,7 @@ Basic usage of the Template trait:
 
 ```rust
 impl Template for MyWidget {
-    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
          self.name("MyWidget")
             .style("my_widget_style")
             .background("#000000")
@@ -132,9 +132,9 @@ impl Template for MyWidget {
                     .child(TextBlock::new()
                             // TextBlock references the same text as MyWidget
                             .text(id)
-                            , btx
+                            .build(ctx)
                     )
-                    , btx
+                    .build(ctx)
             )
     }
 }
@@ -276,8 +276,8 @@ Application::new()
             .position((100, 100))
             .size(600, 730)
             .resizeable(true)
-            .child(TextBlock::new().text("hello"), btx)
-            , btx
+            .child(TextBlock::new().text("hello").build(ctx))
+            .build(ctx)
     })
     .run();
 ```

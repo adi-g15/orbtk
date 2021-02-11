@@ -43,7 +43,7 @@ impl EventHandler for TextInputEventHandler {
 ///     .on_text_input(|_ctx, text| {
 ///         println!("{}", text);
 ///         true
-///     }), btx
+///     }).build(ctx)
 /// ```
 pub trait TextInputHandler: Sized + Widget {
     /// Callback that is called when a text input event reaches the widget.

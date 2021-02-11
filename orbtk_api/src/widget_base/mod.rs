@@ -99,7 +99,7 @@ pub trait Widget: Template {
     }
 
     /// Builds the widget and returns the template of the widget.
-    fn build(self, btx: &mut BuildContext) -> Entity;
+    fn build(self, ctx: &mut BuildContext) -> Entity;
 
     /// Inerts a new event handler.
     fn insert_handler(self, handler: impl Into<Rc<dyn EventHandler>>) -> Self;
@@ -112,8 +112,5 @@ pub trait Widget: Template {
     ) -> Self;
 
     /// Appends a child to the widget.
-    fn child(self, child: impl Widget, btx: &mut BuildContext) -> Self;
-
-    /// Appends a child entity to the widget.
-    fn child_entity(self, child: Entity) -> Self;
+    fn child(self, child: Entity) -> Self;
 }
