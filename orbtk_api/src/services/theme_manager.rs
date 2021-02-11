@@ -1,17 +1,27 @@
 use std::collections::HashMap;
 
-use crate::theming::Theme;
+use crate::{theming::Theme, widget_base::Context};
 
 pub struct ThemeManager {
-    selected_theme: Option<Theme>,
+    selected_theme_key: Option<String>,
     themes: HashMap<String, Theme>,
 }
 
 impl ThemeManager {
     pub fn new() -> Self {
         ThemeManager {
-            selected_theme: None,
+            selected_theme_key: None,
             themes: HashMap::new(),
         }
+    }
+
+    pub fn insert(&mut self, key: impl Into<String>, theme: Theme) {
+        let key = key.into();
+        self.themes.insert(key.clone(), theme);
+        self.selected_theme_key = Some(key);
+    }
+
+    pub fn selected_theme(&self, key: impl Into<String>) -> Option<&Theme> {
+        self.themes.get(&key.into())
     }
 }
