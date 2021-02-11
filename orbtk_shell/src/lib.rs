@@ -5,7 +5,9 @@ use dces::prelude::*;
 use orbtk_render::RenderContext2D;
 
 use orbtk_api::{
+    application::ContextProvider,
     localization::*,
+    services::*,
     theming::Theme,
     tree::*,
     widget_base::{BuildContext, Widget},
@@ -44,7 +46,21 @@ impl Shell {
     /// let shell = Shell::create().ui(|ctx| {}).build();
     /// ```
     pub fn create() -> ShellBuilder {
-        ShellBuilder::new()
+        ShellBuilder::new(String::default())
+    }
+
+    /// Creates a new shell builder with an app name that is used to configure the shell.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use morph_ui_shell::Shell;
+    /// // use morph_ui::shell::Shell;
+    ///
+    /// let shell = Shell::create_from_name("my app").ui(|ctx| {}).build();
+    /// ```
+    pub fn create_from_name(app_name: String) -> ShellBuilder {
+        ShellBuilder::new(app_name)
     }
 
     /// Resizes the shell (frame buffer) to the given size.
@@ -157,14 +173,16 @@ impl Shell {
 pub struct ShellBuilder {
     world: World<Tree>,
     size: (u32, u32),
+    app_name: String,
 }
 
 impl ShellBuilder {
     /// Creates a new shell builder.
-    fn new() -> Self {
+    fn new(app_name: String) -> Self {
         ShellBuilder {
             world: World::from_entity_store(Tree::new()),
             size: (0, 0),
+            app_name,
         }
     }
 
@@ -190,6 +208,22 @@ impl ShellBuilder {
     ///
     /// An ui can only be set once. If the method is multiple called, the last set ui will be used.
     pub fn ui(mut self, ui: impl Widget) -> Self {
+        // let (sender, receiver) = mpsc::channel();
+
+        // let context_provider =
+        //     ContextProvider::new(sender, request_sender, app_name.clone(), localization);
+
+        // if app_name.is_empty() {
+        //     world
+        //         .resources_mut()
+        //         .insert(Settings::new(context_provider.message_adapter.clone()));
+        // } else {
+        //     world.resources_mut().insert(Settings::from_name(
+        //         app_name,
+        //         context_provider.message_adapter.clone(),
+        //     ));
+        // };
+
         self
     }
 
@@ -229,6 +263,11 @@ pub fn insert_default_resources(shell: &mut Shell) {
         shell.size.0 as f64,
         shell.size.1 as f64,
     ));
+
+    // services
+    // font_manager
+    // application
+    // theme manager
 }
 
 // [END] Helpers

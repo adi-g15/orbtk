@@ -24,4 +24,14 @@ impl ThemeManager {
     pub fn selected_theme(&self, key: impl Into<String>) -> Option<&Theme> {
         self.themes.get(&key.into())
     }
+
+    pub fn len(&self) -> usize {
+        self.themes.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.themes.is_empty()
+    }
+
+    // todo update values of widgets before rendering
 }
