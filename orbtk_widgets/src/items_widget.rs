@@ -17,10 +17,10 @@ impl ItemsWidgetState {
                     ctx.clear_children_of(items_panel);
 
                     for i in 0..count {
-                        let bctx = &mut ctx.build_context();
+                        let btx = &mut ctx.build_context();
 
-                        let child = builder(bctx, i);
-                        bctx.append_child(items_panel, child);
+                        let child = builder(btx, i);
+                        btx.append_child(items_panel, child);
                     }
                 }
             }
@@ -83,7 +83,7 @@ impl ItemsWidget {
 }
 
 impl Template for ItemsWidget {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("ItemsWidget")
             .style("items_widget")
             .background(colors::LYNCH_COLOR)
@@ -92,7 +92,7 @@ impl Template for ItemsWidget {
             .border_brush(colors::BOMBAY_COLOR)
             .padding(2.0)
             .orientation("vertical")
-            .child(Stack::new().id("items_panel").orientation(id).build(ctx))
+            .child(Stack::new().id("items_panel").orientation(id).build(btx))
     }
 
     fn render_object(&self) -> Box<dyn RenderObject> {

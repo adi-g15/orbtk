@@ -111,7 +111,7 @@ widget!(
 );
 
 impl Template for PasswordBox {
-    fn template(mut self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(mut self, id: Entity, btx: &mut BuildContext) -> Self {
         let text_block = TextBlock::new()
             .v_align("center")
             .h_align("start")
@@ -120,11 +120,11 @@ impl Template for PasswordBox {
             .font(id)
             .font_size(id)
             .localizable(false)
-            .build(ctx);
+            .build(btx);
 
         self.state_mut().text_block = text_block;
 
-        let cursor = Cursor::new().selection(id).build(ctx);
+        let cursor = Cursor::new().selection(id).build(btx);
 
         let text_behavior = TextBehavior::new()
             .cursor(cursor.0)
@@ -138,7 +138,7 @@ impl Template for PasswordBox {
             .request_focus(id)
             .text(id)
             .selection(id)
-            .build(ctx);
+            .build(btx);
 
         self.state_mut().text_behavior = text_behavior;
 
@@ -174,9 +174,9 @@ impl Template for PasswordBox {
                             .clip(true)
                             .child(cursor)
                             .child(text_block)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
     }
 }

@@ -120,7 +120,7 @@ Basic usage of the Template trait:
 
 ```rust
 impl Template for MyWidget {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
          self.name("MyWidget")
             .style("my_widget_style")
             .background("#000000")

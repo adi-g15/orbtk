@@ -244,9 +244,9 @@ impl MasterDetail {
 }
 
 impl Template for MasterDetail {
-    fn template(self, _: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, _: Entity, btx: &mut BuildContext) -> Self {
         self.name("MasterDetails")
             .master_width(374)
-            .child(Grid::new().id(CONTENT_GRID).build(ctx))
+            .child(Grid::new().id(CONTENT_GRID).build(btx))
     }
 }

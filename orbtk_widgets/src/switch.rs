@@ -109,7 +109,7 @@ widget!(
 );
 
 impl Template for Switch {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("Switch")
             .style("switch")
             .pressed(false)
@@ -138,7 +138,7 @@ impl Template for Switch {
                             .border_width(id)
                             .border_radius(id)
                             .margin(("container_margin", id))
-                            .build(ctx),
+                            .build(btx),
                     )
                     .child(
                         Container::new()
@@ -150,9 +150,9 @@ impl Template for Switch {
                             .width(20.0)
                             .height(20.0)
                             .border_radius(10.0)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .on_changed("selected", move |ctx, _| {
                 ctx.send_message(SwitchAction::SelectionChanged, id);

@@ -35,7 +35,7 @@ widget!(
 
 impl Grid {
     /// Sets column and row to the given widget and add it as child.
-    pub fn place<W>(self, ctx: &mut BuildContext, child: W, column: usize, row: usize) -> Self
+    pub fn place<W>(self, btx: &mut BuildContext, child: W, column: usize, row: usize) -> Self
     where
         W: Widget,
     {
@@ -43,7 +43,7 @@ impl Grid {
             child
                 .attach(Grid::column(column))
                 .attach(Grid::row(row))
-                .build(ctx),
+                .build(btx),
         )
     }
 }

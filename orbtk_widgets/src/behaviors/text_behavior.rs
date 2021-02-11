@@ -785,7 +785,7 @@ widget!(
     /// });
     ///
     /// impl Template for MyInput {
-    ///     fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    ///     fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
     ///         // Cursor depends on a TextBlock
     ///         let text_block = TextBlock::new()
     ///             .text(id)

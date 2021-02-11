@@ -202,7 +202,7 @@ widget!(
 );
 
 impl Template for Slider {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("Slider")
             .style(STYLE_SLIDER)
             .min(0.0)
@@ -227,7 +227,7 @@ impl Template for Slider {
                                     .background(id)
                                     .border_brush(id)
                                     .border_width(id)
-                                    .build(ctx),
+                                    .build(btx),
                             )
                             .child(
                                 // accent border
@@ -239,9 +239,9 @@ impl Template for Slider {
                                     .opacity(id)
                                     .border_radius(id)
                                     .background(("accent_brush", id))
-                                    .build(ctx),
+                                    .build(btx),
                             )
-                            .build(ctx),
+                            .build(btx),
                     )
                     .child(
                         Button::new()
@@ -253,9 +253,9 @@ impl Template for Slider {
                             .max_width(24.0)
                             .max_height(24.0)
                             .border_radius(12.0)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .on_mouse_move(move |states, p| {
                 states

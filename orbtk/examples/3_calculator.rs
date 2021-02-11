@@ -30,7 +30,7 @@ pub struct MainViewState {
 }
 
 impl MainViewState {
-    fn calculate(&mut self, ctx: &mut Context) {
+    fn calculate(&mut self, btx: &mut Context) {
         let mut result = 0.0;
         if let Some(operator) = self.operator {
             if let Some(left_side) = self.left_side {
@@ -55,9 +55,9 @@ impl MainViewState {
         }
 
         if result % 1.0 == 0.0 {
-            MainView::text_set(&mut ctx.widget(), format!("{}", result));
+            MainView::text_set(&mut btx.widget(), format!("{}", result));
         } else {
-            MainView::text_set(&mut ctx.widget(), format!("{:.8}", result));
+            MainView::text_set(&mut btx.widget(), format!("{:.8}", result));
         }
 
         self.left_side = Some(result);
@@ -66,12 +66,12 @@ impl MainViewState {
 }
 
 impl State for MainViewState {
-    fn messages(&mut self, mut messages: MessageReader, ctx: &mut Context, _res: &mut Resources) {
+    fn messages(&mut self, mut messages: MessageReader, btx: &mut Context, _res: &mut Resources) {
         for message in messages.read::<Action>() {
             match message {
                 Action::Digit(digit) => {
                     self.input.push(digit);
-                    TextBlock::text_mut(&mut ctx.child("input")).push(digit);
+                    TextBlock::text_mut(&mut btx.child("input")).push(digit);
                 }
                 Action::Operator(operator) => match operator {
                     'C' => {
@@ -79,17 +79,17 @@ impl State for MainViewState {
                         self.left_side = None;
                         self.operator = None;
                         self.right_side = None;
-                        MainView::text_mut(&mut ctx.widget()).clear();
-                        TextBlock::text_mut(&mut ctx.child("input")).clear();
+                        MainView::text_mut(&mut btx.widget()).clear();
+                        TextBlock::text_mut(&mut btx.child("input")).clear();
                     }
                     '=' => {
                         self.right_side = Some(self.input.parse().unwrap_or(0.));
-                        self.calculate(ctx);
+                        self.calculate(btx);
                         self.input.clear();
                         self.left_side = None;
                         self.operator = None;
                         self.right_side = None;
-                        TextBlock::text_mut(&mut ctx.child("input")).clear();
+                        TextBlock::text_mut(&mut btx.child("input")).clear();
                     }
                     _ => {
                         if self.input.is_empty() {
@@ -99,10 +99,10 @@ impl State for MainViewState {
                             self.left_side = Some(self.input.parse().unwrap_or(0.));
                         } else {
                             self.right_side = Some(self.input.parse().unwrap_or(0.));
-                            self.calculate(ctx);
+                            self.calculate(btx);
                         }
 
-                        TextBlock::text_mut(&mut ctx.child("input")).push(operator);
+                        TextBlock::text_mut(&mut btx.child("input")).push(operator);
                         self.input.clear();
                         self.operator = Some(operator);
                     }
@@ -113,7 +113,7 @@ impl State for MainViewState {
 }
 
 fn generate_digit_button(
-    ctx: &mut BuildContext,
+    btx: &mut BuildContext,
     id: Entity,
     sight: char,
     primary: bool,
@@ -139,11 +139,11 @@ fn generate_digit_button(
         .attach(Grid::row(row))
         .attach(Grid::column_span(column_span));
 
-    button.build(ctx)
+    button.build(btx)
 }
 
 fn generate_operation_button(
-    ctx: &mut BuildContext,
+    btx: &mut BuildContext,
     id: Entity,
     sight: char,
     primary: bool,
@@ -168,7 +168,7 @@ fn generate_operation_button(
         .attach(Grid::column(column))
         .attach(Grid::column_span(column_span))
         .attach(Grid::row(row));
-    button.build(ctx)
+    button.build(btx)
 }
 
 widget!(MainView<MainViewState> {
@@ -176,7 +176,7 @@ widget!(MainView<MainViewState> {
 });
 
 impl Template for MainView {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("MainView").width(212).height(336).text("").child(
             Grid::new()
                 .rows("72, *")
@@ -198,9 +198,9 @@ impl Template for MainView {
                                                 .style("input")
                                                 .id("input")
                                                 .v_align("start")
-                                                .build(ctx),
+                                                .build(btx),
                                         )
-                                        .build(ctx),
+                                        .build(btx),
                                 )
                                 .child(
                                     TextBlock::new()
@@ -208,11 +208,11 @@ impl Template for MainView {
                                         .text(id)
                                         .v_align("end")
                                         .h_align("end")
-                                        .build(ctx),
+                                        .build(btx),
                                 )
-                                .build(ctx),
+                                .build(btx),
                         )
-                        .build(ctx),
+                        .build(btx),
                 )
                 .child(
                     Container::new()
@@ -224,32 +224,32 @@ impl Template for MainView {
                                 .columns("48, 4, 48, 4, 48, 3, 48")
                                 .rows("48, 4, 48, 4, 48, 4, 48, 4, 48")
                                 // row 0
-                                .child(generate_operation_button(ctx, id, 'C', false, 0, 5, 0))
-                                .child(generate_operation_button(ctx, id, '/', true, 6, 3, 0))
+                                .child(generate_operation_button(btx, id, 'C', false, 0, 5, 0))
+                                .child(generate_operation_button(btx, id, '/', true, 6, 3, 0))
                                 // row 2
-                                .child(generate_digit_button(ctx, id, '7', false, 0, 1, 2))
-                                .child(generate_digit_button(ctx, id, '8', false, 2, 1, 2))
-                                .child(generate_digit_button(ctx, id, '9', false, 4, 1, 2))
-                                .child(generate_operation_button(ctx, id, '*', true, 6, 1, 2))
+                                .child(generate_digit_button(btx, id, '7', false, 0, 1, 2))
+                                .child(generate_digit_button(btx, id, '8', false, 2, 1, 2))
+                                .child(generate_digit_button(btx, id, '9', false, 4, 1, 2))
+                                .child(generate_operation_button(btx, id, '*', true, 6, 1, 2))
                                 // row 4
-                                .child(generate_digit_button(ctx, id, '4', false, 0, 1, 4))
-                                .child(generate_digit_button(ctx, id, '5', false, 2, 1, 4))
-                                .child(generate_digit_button(ctx, id, '6', false, 4, 1, 4))
-                                .child(generate_operation_button(ctx, id, '-', true, 6, 1, 4))
+                                .child(generate_digit_button(btx, id, '4', false, 0, 1, 4))
+                                .child(generate_digit_button(btx, id, '5', false, 2, 1, 4))
+                                .child(generate_digit_button(btx, id, '6', false, 4, 1, 4))
+                                .child(generate_operation_button(btx, id, '-', true, 6, 1, 4))
                                 // row 6
-                                .child(generate_digit_button(ctx, id, '1', false, 0, 1, 6))
-                                .child(generate_digit_button(ctx, id, '2', false, 2, 1, 6))
-                                .child(generate_digit_button(ctx, id, '3', false, 4, 1, 6))
-                                .child(generate_operation_button(ctx, id, '+', true, 6, 1, 6))
+                                .child(generate_digit_button(btx, id, '1', false, 0, 1, 6))
+                                .child(generate_digit_button(btx, id, '2', false, 2, 1, 6))
+                                .child(generate_digit_button(btx, id, '3', false, 4, 1, 6))
+                                .child(generate_operation_button(btx, id, '+', true, 6, 1, 6))
                                 // row 8
-                                .child(generate_digit_button(ctx, id, '0', false, 0, 3, 8))
-                                .child(generate_digit_button(ctx, id, '.', false, 4, 1, 8))
-                                .child(generate_operation_button(ctx, id, '=', true, 6, 1, 8))
-                                .build(ctx),
+                                .child(generate_digit_button(btx, id, '0', false, 0, 3, 8))
+                                .child(generate_digit_button(btx, id, '.', false, 4, 1, 8))
+                                .child(generate_operation_button(btx, id, '=', true, 6, 1, 8))
+                                .build(btx),
                         )
-                        .build(ctx),
+                        .build(btx),
                 )
-                .build(ctx),
+                .build(btx),
         )
     }
 }
@@ -257,13 +257,13 @@ impl Template for MainView {
 fn main() {
     Application::new()
         .theme(theme())
-        .window(|ctx| {
+        .window(|btx| {
             OldWindow::new()
                 .title("OrbTk - Calculator example")
                 .position((100, 100))
                 .size(212.0, 336)
-                .child(MainView::new().build(ctx))
-                .build(ctx)
+                .child(MainView::new().build(btx))
+                .build(btx)
         })
         .run();
 }

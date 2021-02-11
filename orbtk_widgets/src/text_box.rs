@@ -65,7 +65,7 @@ widget!(
 );
 
 impl Template for TextBox {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         let text_block = TextBlock::new()
             .v_align("center")
             .h_align("start")
@@ -75,9 +75,9 @@ impl Template for TextBox {
             .font(id)
             .font_size(id)
             .localizable(false)
-            .build(ctx);
+            .build(btx);
 
-        let cursor = Cursor::new().id(ID_CURSOR).selection(id).build(ctx);
+        let cursor = Cursor::new().id(ID_CURSOR).selection(id).build(btx);
 
         let text_behavior = TextBehavior::new()
             .cursor(cursor.0)
@@ -91,7 +91,7 @@ impl Template for TextBox {
             .request_focus(id)
             .text(id)
             .selection(id)
-            .build(ctx);
+            .build(btx);
 
         self.name("TextBox")
             .style(STYLE_TEXT_BOX)
@@ -123,9 +123,9 @@ impl Template for TextBox {
                             .clip(true)
                             .child(cursor)
                             .child(text_block)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .on_changed("text", move |ctx, _| {
                 ctx.send_message(TextAction::ForceUpdate(false), text_behavior);

@@ -176,7 +176,7 @@ impl ComboBoxItem {
 }
 
 impl Template for ComboBoxItem {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("ComboBoxItem")
             .style("combo_box_item")
             .min_width(64)
@@ -196,7 +196,7 @@ impl Template for ComboBoxItem {
                     .pressed(id)
                     .enabled(id)
                     .target(id.0)
-                    .build(ctx),
+                    .build(btx),
             )
             .on_click(move |states, _| {
                 states.get::<ComboBoxItemState>(id).toggle_selection();
@@ -398,8 +398,8 @@ impl ComboBox {
 }
 
 impl Template for ComboBox {
-    fn template(mut self, id: Entity, ctx: &mut BuildContext) -> Self {
-        let selected_container = Container::new().attach(Grid::column(0)).build(ctx);
+    fn template(mut self, id: Entity, btx: &mut BuildContext) -> Self {
+        let selected_container = Container::new().attach(Grid::column(0)).build(btx);
 
         let container = Container::new()
             .id(CONTAINER)
@@ -420,24 +420,24 @@ impl Template for ComboBox {
                             .icon_size(id)
                             .icon_font(id)
                             .icon(id)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
-            .build(ctx);
+            .build(btx);
         self.state_mut().selected_container = selected_container;
 
         let items_panel = Stack::new()
             .v_align("start")
             .id(ITEMS_PANEL)
             .orientation("vertical")
-            .build(ctx);
+            .build(btx);
 
         self.state_mut().items_panel = items_panel;
         let scroll_viewer = ScrollViewer::new()
             .mode(("disabled", "auto"))
             .child(items_panel)
-            .build(ctx);
+            .build(btx);
 
         let popup = Popup::new()
             .height(200.0)
@@ -451,13 +451,13 @@ impl Template for ComboBox {
                     .scroll_padding(("padding", scroll_viewer))
                     .mode(scroll_viewer)
                     .opacity(id)
-                    .build(ctx),
+                    .build(btx),
             )
             .target(container.0)
-            .build(ctx);
+            .build(btx);
         self.state_mut().popup = popup;
 
-        let _ = ctx.append_child_to_overlay(popup);
+        let _ = btx.append_child_to_overlay(popup);
 
         self.name("ComboBox")
             .style("combo_box")
@@ -480,9 +480,9 @@ impl Template for ComboBox {
                             .enabled(id)
                             .target(id.0)
                             .child(container)
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .on_global_mouse_up(move |states, e| {
                 states

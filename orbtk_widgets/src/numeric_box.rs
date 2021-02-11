@@ -222,7 +222,7 @@ widget!(
 );
 
 impl Template for NumericBox {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("NumericBox")
             .style("numeric_box")
             .background("transparent")
@@ -254,7 +254,7 @@ impl Template for NumericBox {
                             .action(InputAction::ChangeByMouseScroll(delta));
                         true
                     })
-                    .build(ctx),
+                    .build(btx),
             )
             .child(
                 Grid::new()
@@ -278,7 +278,7 @@ impl Template for NumericBox {
                             .v_align("center")
                             .text("0")
                             .lose_focus_on_activation(id)
-                            .build(ctx),
+                            .build(btx),
                     )
                     .child(
                         Button::new()
@@ -295,7 +295,7 @@ impl Template for NumericBox {
                                     .action(InputAction::Inc);
                                 true
                             })
-                            .build(ctx),
+                            .build(btx),
                     )
                     .child(
                         Button::new()
@@ -313,9 +313,9 @@ impl Template for NumericBox {
                                     .action(InputAction::Dec);
                                 true
                             })
-                            .build(ctx),
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .on_key_down(move |states, event| -> bool {
                 states

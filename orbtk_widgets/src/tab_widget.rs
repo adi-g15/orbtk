@@ -139,7 +139,7 @@ impl TabHeader {
 }
 
 impl Template for TabHeader {
-    fn template(mut self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(mut self, id: Entity, btx: &mut BuildContext) -> Self {
         let mut button = Button::new()
             .style("tab_icon_only")
             .icon(material_icons_font::MD_CLOSE)
@@ -176,7 +176,7 @@ impl Template for TabHeader {
             .icon_brush(colors::LINK_WATER_COLOR)
             .spacing(4)
             .close_button(Visibility::Visible)
-            .child(mouse_behavior.build(ctx))
+            .child(mouse_behavior.build(btx))
             .child(
                 Container::new()
                     .padding(id)
@@ -193,12 +193,12 @@ impl Template for TabHeader {
                                     .font(id)
                                     .font_size(id)
                                     .foreground(id)
-                                    .build(ctx),
+                                    .build(btx),
                             )
-                            .child(button.v_align("center").build(ctx))
-                            .build(ctx),
+                            .child(button.v_align("center").build(btx))
+                            .build(btx),
                     )
-                    .build(ctx),
+                    .build(btx),
             )
             .child(
                 Container::new()
@@ -206,7 +206,7 @@ impl Template for TabHeader {
                     .v_align("start")
                     .visibility("collapsed")
                     .style("tab_header_bar")
-                    .build(ctx),
+                    .build(btx),
             )
     }
 
@@ -540,7 +540,7 @@ impl TabWidget {
 }
 
 impl Template for TabWidget {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("TabWidget").style("tab_widget").child(
             Grid::new()
                 .rows("34, *")
@@ -549,7 +549,7 @@ impl Template for TabWidget {
                         .id(HEADER_CONTAINER)
                         .orientation("horizontal")
                         .spacing(id)
-                        .build(ctx),
+                        .build(btx),
                 )
                 .child(
                     Container::new()
@@ -559,9 +559,9 @@ impl Template for TabWidget {
                         .border_width(id)
                         .border_radius(id)
                         .attach(Grid::row(1))
-                        .build(ctx),
+                        .build(btx),
                 )
-                .build(ctx),
+                .build(btx),
         )
     }
 }

@@ -105,7 +105,7 @@ widget!(
 );
 
 impl Template for ProgressBar {
-    fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
+    fn template(self, id: Entity, btx: &mut BuildContext) -> Self {
         self.name("ProgressBar")
             .style(STYLE_PROGRESS_BAR)
             .val(0.0)
@@ -126,7 +126,7 @@ impl Template for ProgressBar {
                     .border_radius(("indicator_border_radius", id))
                     .width(0.0)
                     .h_align("start")
-                    .build(ctx),
+                    .build(btx),
             )
     }
 
