@@ -2,14 +2,24 @@ use std::cell::RefCell;
 
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Theme, tree::Tree, utils::*};
+use orbtk_api::{prelude::*, theming::Theme, tree::Tree};
 
 /// The `EventStateSystem` pops events from the event queue and delegates the events to the corresponding event handlers of the widgets and updates the states.
-#[derive(Constructor)]
 pub struct EventStateSystem {
     context_provider: ContextProvider,
 
+    // todo: move to application???
     hovered_widgets: RefCell<Vec<Entity>>,
+}
+
+impl EventStateSystem {
+    /// Creates a new event state system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        EventStateSystem {
+            context_provider,
+            hovered_widgets: RefCell::new(vec![]),
+        }
+    }
 }
 
 impl EventStateSystem {

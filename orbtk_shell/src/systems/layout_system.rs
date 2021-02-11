@@ -1,11 +1,19 @@
 use dces::prelude::*;
 
-use crate::{prelude::*, render::RenderContext2D, tree::Tree, utils::*};
+use orbtk_api::{prelude::*, tree::Tree};
+use orbtk_render::prelude::*;
+use orbtk_utils::*;
 
 /// The `LayoutSystem` builds per iteration the layout of the current ui. The layout parts are calculated by the layout objects of layout widgets.
-#[derive(Constructor)]
 pub struct LayoutSystem {
     context_provider: ContextProvider,
+}
+
+impl LayoutSystem {
+    /// Creates a new layout system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        LayoutSystem { context_provider }
+    }
 }
 
 impl System<Tree> for LayoutSystem {

@@ -82,7 +82,9 @@ impl EventAdapter {
     }
 
     /// Returns an dequeue iterator, that dequeue events from the event queue.
-    pub(crate) fn event_reader(&self) -> EventReader {
+
+    /// todo handle visibility on inside
+    pub fn event_reader(&self) -> EventReader {
         EventReader {
             event_adapter: self.clone(),
         }

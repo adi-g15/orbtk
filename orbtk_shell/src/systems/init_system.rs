@@ -1,11 +1,17 @@
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Selector, tree::Tree};
+use orbtk_api::{prelude::*, theming::Selector, tree::Tree};
 
 /// This system is used to initializes the widgets.
-#[derive(Constructor)]
 pub struct InitSystem {
     context_provider: ContextProvider,
+}
+
+impl InitSystem {
+    /// Creates a new init system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        InitSystem { context_provider }
+    }
 }
 
 impl System<Tree> for InitSystem {
@@ -18,11 +24,12 @@ impl System<Tree> for InitSystem {
         let debug = false;
 
         if debug {
-            crate::shell::CONSOLE.log("\n------ Widget tree ------\n".to_string());
+            // todo: move this to accessable area
+            // crate::shell::CONSOLE.log("\n------ Widget tree ------\n".to_string());
 
             print_tree(root, 0, ecm);
 
-            crate::shell::CONSOLE.log("\n------ Widget tree ------\n".to_string());
+            // crate::shell::CONSOLE.log("\n------ Widget tree ------\n".to_string());
         }
 
         // init css ids
@@ -71,13 +78,13 @@ pub fn print_tree(entity: Entity, depth: usize, ecm: &mut EntityComponentManager
         Selector::default()
     };
 
-    crate::shell::CONSOLE.log(format!(
-        "{}{} (entity: {}{})",
-        "| ".repeat(depth),
-        name,
-        entity.0,
-        selector
-    ));
+    // crate::shell::CONSOLE.log(format!(
+    //     "{}{} (entity: {}{})",
+    //     "| ".repeat(depth),
+    //     name,
+    //     entity.0,
+    //     selector
+    // ));
 
     for child in ecm.entity_store().clone().children.get(&entity).unwrap() {
         print_tree(*child, depth + 1, ecm);

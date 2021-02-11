@@ -134,7 +134,9 @@ impl MessageAdapter {
     }
 
     /// Returns a list of entities that has messages.
-    pub(crate) fn entities(&self) -> Vec<Entity> {
+
+    /// todo handle visibility on inside
+    pub fn entities(&self) -> Vec<Entity> {
         self.messages
             .lock()
             .expect("MessageAdapter::entities: Cannot lock messages.")
@@ -145,7 +147,9 @@ impl MessageAdapter {
 
     /// Removes all messages for the given target entity. This is used to remove messages for
     /// entities that does not have a `State` to read the messages.
-    pub(crate) fn remove_message_for_entity(&self, target: Entity) {
+
+    /// todo handle visibility on inside
+    pub fn remove_message_for_entity(&self, target: Entity) {
         self.messages
             .lock()
             .expect("MessageAdapter::remove_message_for_entity: Cannot lock messages.")
@@ -169,7 +173,9 @@ impl MessageAdapter {
     }
 
     /// Returns a message reader for the given entity. Moves all messages for the entity from the adapter to the reader.
-    pub(crate) fn message_reader(&self, entity: Entity) -> MessageReader {
+
+    /// todo handle visibility on inside
+    pub fn message_reader(&self, entity: Entity) -> MessageReader {
         let messages = if let Some(messages) = self
             .messages
             .lock()

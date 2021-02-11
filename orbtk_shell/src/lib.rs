@@ -14,6 +14,9 @@ use orbtk_api::{
 };
 use orbtk_utils::*;
 
+mod systems;
+use self::systems::*;
+
 /// Represents an immediate mode user interface (ui) shell.
 ///
 /// It contains the Entity Component System (ECS), that organizes all the widgets of
@@ -268,6 +271,36 @@ pub fn insert_default_resources(shell: &mut Shell) {
     // font_manager
     // application
     // theme manager
+}
+
+/// Insert the default set of ECS systems to the world.
+pub fn insert_default_systems(world: &mut World<Tree>) {
+    // world.register_init_system(InitSystem::new(context_provider.clone()));
+
+    // world.register_cleanup_system(CleanupSystem::new(context_provider.clone()));
+
+    // world
+    //     .create_system(EventStateSystem::new(
+    //         context_provider.clone(),
+    //         RefCell::new(vec![]),
+    //     ))
+    //     .with_priority(0)
+    //     .build();
+
+    // world
+    //     .create_system(LayoutSystem::new(context_provider.clone()))
+    //     .with_priority(1)
+    //     .build();
+
+    // world
+    //     .create_system(PostLayoutStateSystem::new(context_provider.clone()))
+    //     .with_priority(2)
+    //     .build();
+
+    // world
+    //     .create_system(RenderSystem::new(context_provider.clone()))
+    //     .with_priority(3)
+    //     .build();
 }
 
 // [END] Helpers

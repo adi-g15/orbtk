@@ -1,14 +1,16 @@
-use orbtk::prelude::*;
+// use orbtk::prelude::*;
 
-fn main() {
-    Application::new()
-        .window(|ctx| {
-            OldWindow::new()
-                .title("OrbTk - minimal example")
-                .position((100.0, 100.0))
-                .size(420.0, 730.0)
-                .child(TextBlock::new().text("OrbTk").build(ctx))
-                .build(ctx)
-        })
-        .run();
-}
+// fn main() {
+//     Application::new()
+//         .window(|ctx| {
+//             OldWindow::new()
+//                 .title("OrbTk - minimal example")
+//                 .position((100.0, 100.0))
+//                 .size(420.0, 730.0)
+//                 .child(TextBlock::new().text("OrbTk").build(ctx))
+//                 .build(ctx)
+//         })
+//         .run();
+// }
+
+pub fn main() {}

@@ -2,12 +2,19 @@ use std::collections::BTreeMap;
 
 use dces::prelude::*;
 
-use crate::{prelude::*, render::RenderContext2D, tree::Tree};
+use orbtk_api::{prelude::*, tree::Tree};
+use orbtk_render::*;
 
 /// The `RenderSystem` iterates over all visual widgets and used its render objects to draw them on the screen.
-#[derive(Constructor)]
 pub struct RenderSystem {
     context_provider: ContextProvider,
+}
+
+impl RenderSystem {
+    /// Creates a new render system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        RenderSystem { context_provider }
+    }
 }
 
 impl System<Tree> for RenderSystem {

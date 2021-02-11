@@ -1,11 +1,17 @@
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Theme, tree::Tree};
+use orbtk_api::{prelude::*, theming::Theme, tree::Tree};
 
 /// The `PostLayoutStateSystem` calls the update_post_layout methods of widget states.
-#[derive(Constructor)]
 pub struct PostLayoutStateSystem {
     context_provider: ContextProvider,
+}
+
+impl PostLayoutStateSystem {
+    /// Creates a new post layout system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        PostLayoutStateSystem { context_provider }
+    }
 }
 
 impl PostLayoutStateSystem {

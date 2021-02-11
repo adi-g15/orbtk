@@ -1,11 +1,17 @@
 use dces::prelude::*;
 
-use crate::{prelude::*, theming::Theme, tree::Tree};
+use orbtk_api::{prelude::*, theming::Theme, tree::Tree};
 
 /// Handles the inner cleanup while window is closing.
-#[derive(Constructor)]
 pub struct CleanupSystem {
     context_provider: ContextProvider,
+}
+
+impl CleanupSystem {
+    /// Creates a new cleanup system.
+    pub fn new(context_provider: ContextProvider) -> Self {
+        CleanupSystem { context_provider }
+    }
 }
 
 impl System<Tree> for CleanupSystem {
